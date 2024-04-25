@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-shop-footer',
@@ -7,6 +7,5 @@ import { Component } from '@angular/core';
   templateUrl: './shop-footer.component.html',
   styleUrl: './shop-footer.component.css'
 })
-export class ShopFooterComponent {
-
+export class ShopFooterComponent{
 }

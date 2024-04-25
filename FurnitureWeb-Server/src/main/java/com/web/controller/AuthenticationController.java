@@ -1,5 +1,6 @@
 package com.web.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,6 @@ import com.web.dto.JwtAuthenticationResponse;
 import com.web.dto.SignInRequest;
 import com.web.dto.SignUpRequest;
 import com.web.dto.ValidateTokenRequest;
-import com.web.entity.User;
 import com.web.service.AuthenticationService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,8 +24,9 @@ public class AuthenticationController {
 	private final AuthenticationService authenticationService;
 	
 	@PostMapping("/signup")
-	public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest) {
+	public ResponseEntity<?> signup(@RequestBody SignUpRequest signUpRequest) {
 		return ResponseEntity.ok(authenticationService.signup(signUpRequest));
+		
 	}
 	
 	@PostMapping("/signin")

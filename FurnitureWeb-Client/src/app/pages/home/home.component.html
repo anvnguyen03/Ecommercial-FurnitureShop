@@ -1,3 +1,5 @@
+<app-shop-header></app-shop-header>
+
 <!-- Start Hero Slider Section-->
 <div class="hero-slider-section">
     <!-- Slider main container -->
@@ -66,7 +68,7 @@
             <div class="row">
                 <!-- Start Service Promo Single Item -->
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="0">
+                    <div class="service-promo-single-item">
                        <div class="image">
                             <img src="/assets/static/images/icons/service-promo-1.png" alt="">
                        </div>
@@ -79,7 +81,7 @@
                 <!-- End Service Promo Single Item -->
                 <!-- Start Service Promo Single Item -->
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="200">
+                    <div class="service-promo-single-item">
                        <div class="image">
                             <img src="/assets/static/images/icons/service-promo-2.png" alt="">
                        </div>
@@ -92,7 +94,7 @@
                 <!-- End Service Promo Single Item -->
                 <!-- Start Service Promo Single Item -->
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="400">
+                    <div class="service-promo-single-item">
                        <div class="image">
                             <img src="/assets/static/images/icons/service-promo-3.png" alt="">
                        </div>
@@ -105,7 +107,7 @@
                 <!-- End Service Promo Single Item -->
                 <!-- Start Service Promo Single Item -->
                 <div class="col-lg-3 col-sm-6 col-12">
-                    <div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="600">
+                    <div class="service-promo-single-item">
                        <div class="image">
                             <img src="/assets/static/images/icons/service-promo-4.png" alt="">
                        </div>
@@ -125,7 +127,7 @@
 <!-- Start Product Default Slider Section -->
 <div class="product-default-slider-section section-top-gap-100 section-fluid">
     <!-- Start Section Content Text Area -->
-    <div class="section-title-wrapper" data-aos="fade-up"  data-aos-delay="0">
+    <div class="section-title-wrapper">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -140,7 +142,7 @@
         </div>
     </div>
     <!-- Start Section Content Text Area -->
-    <div class="product-wrapper" data-aos="fade-up"  data-aos-delay="200">
+    <div class="product-wrapper">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -156,7 +158,7 @@
 	                                <!-- Start Product Default Single Item -->
 	                                <div class="product-default-single-item product-color--golden swiper-slide" style="width: 265.75px; margin-right: 30px;">
 	                                    <div class="image-box">
-	                                        <a href="/shop/productdetails?id=${i.productID}" class="image-link">
+	                                        <a routerLink="/product/123" class="image-link">
 	                                            <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt="">
 	                                            <img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
 	                                        </a>
@@ -451,9 +453,9 @@
         <div class="row">
             <div class="col-xl-8 offset-xl-2">
                 <!-- Start Banner Single Item -->
-                <div class="banner-single-item banner-style-3 banner-animation img-responsive" data-aos="fade-up"  data-aos-delay="0">
+                <div class="banner-single-item banner-style-3 banner-animation img-responsive">
                     <div class="image">
-                        <img class="img-fluid" src="/templates/assets/images/banner/banner-style-3-img-1.jpg" alt="">
+                        <img class="img-fluid" src="/assets/static/images/banner/banner-style-3-img-1.jpg" alt="">
                     </div>
                     <div class="content">
                         <h3 class="title">Modern Furniture
@@ -469,26 +471,4 @@
 </div>
 <!-- End Banner Section -->
 
-<!-- Start Banner Section -->
-<div class="banner-section">
-     <div class="banner-wrapper clearfix">
-     	<!-- <c:forEach items="${listcatepa}" var="i"> -->
-     		<!-- <c:if test="${i.state == 1}"> -->
-		        <!-- Start Banner Single Item -->
-		        <div class="banner-single-item banner-style-4 banner-animation banner-color--golden float-left img-responsive" data-aos="fade-up"  data-aos-delay="0">
-		            <div class="image">
-		                <img class="img-fluid" src="/uploads/${i.categories[0].product[0].imgLink5}" alt="">
-		            </div>
-		            <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}" class="content">
-		                <div class="inner">
-		                    <h4 class="title">$i.cateParentsName</h4>
-		                </div>
-		                <span class="round-btn"><i class="ion-ios-arrow-thin-right"></i></span>
-		            </a>
-		        </div> 
-		        <!-- End Banner Single Item -->
-	        <!-- </c:if> -->
-        <!-- </c:forEach> -->
-     </div>
-</div>
-<!-- End Banner Section -->
+<app-shop-footer></app-shop-footer>

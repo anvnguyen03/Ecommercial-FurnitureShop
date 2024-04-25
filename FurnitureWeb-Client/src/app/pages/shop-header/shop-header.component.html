@@ -1,31 +1,29 @@
 <!-- Start Header Area -->
 <header class="header-section d-none d-xl-block">
     <div class="header-wrapper">
-    	<!-- Start Header Top -->
+        <!-- Start Header Top -->
         <div class="header-top header-top-bg--black section-fluid">
             <div class="container">
                 <div class="col-12 d-flex align-items-center justify-content-between">
                     <div class="header-top-left">
-                        <div class="header-top-contact header-top-contact-color--white header-top-contact-hover-color--green">
-                            <a href="tel:(+84)123 456 789" class="icon-space-right"><i class="icon-call-in"></i>(+84)123 456 789</a>
-                            <a href="mailto:support@gmail.com" class="icon-space-right"><i class="icon-envelope"></i>support&#64;gmail.com</a>
+                        <div
+                            class="header-top-contact header-top-contact-color--white header-top-contact-hover-color--green">
+                            <a href="tel:(+84)123 456 789" class="icon-space-right"><i class="icon-call-in"></i>(+84)123
+                                456 789</a>
+                            <a href="mailto:support@gmail.com" class="icon-space-right"><i
+                                    class="icon-envelope"></i>support&#64;gmail.com</a>
                         </div>
                     </div>
                     <div class="header-top-right">
-                        <div class="header-top-user-link header-top-user-link-color--white header-top-user-link-hover-color--green">
-                            <a href="/recentlyview"><i class="fa fa-heart"></i> Recently view</a>
-                            <a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a> 
-                            
-                            <!-- <c:set var="account" value="${account}"/> -->
-                            
-                            <!-- <c:if test="${not empty account}"> -->
-								<a href="/myaccount"><i class="fa fa-user"></i> $account.fullname</a>
-								<a href="/logout"><i class="fa fa-sign-out"></i> Logout</a>
-							<!-- </c:if> -->
-							
-							<!-- <c:if test="${empty account}">
-								<a href="/login"><i class="fa fa-user"></i> Login</a>
-							</c:if> -->
+                        <div
+                            class="header-top-user-link header-top-user-link-color--white header-top-user-link-hover-color--green">
+                            <a routerLink="/recentlyview"><i class="fa fa-heart"></i> Recently view</a>
+                            <a routerLink="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
+
+                            <a *ngIf="isLoggedIn" routerLink="/myaccount"><i class="fa fa-user"></i> {{username}}</a>
+                            <a *ngIf="isLoggedIn" routerLink="/logout"><i class="fa fa-sign-out"></i> Logout</a>
+
+                            <a *ngIf="!isLoggedIn" routerLink="/login"><i class="fa fa-user"></i> Login</a>
                         </div>
                     </div>
                 </div>
@@ -37,10 +35,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 d-flex align-items-center justify-content-between">
-                         <!-- Start Header Logo -->
+                        <!-- Start Header Logo -->
                         <div class="header-logo">
                             <div class="logo">
-                                <a href="/home"><img src="/assets/static/images/logo/logo_red.png" alt=""></a>
+                                <a routerLink="/home"><img src="/assets/static/images/logo/logo_red.png" alt=""></a>
                             </div>
                         </div>
                         <!-- End Header Logo -->
@@ -50,28 +48,30 @@
                             <nav>
                                 <ul>
                                     <li class="has-dropdown">
-                                        <a class="active main-menu-link" href="/home">Home </a>
+                                        <a class="active main-menu-link" routerLink="/home">Home </a>
                                     </li>
                                     <li class="has-dropdown has-megaitem">
-                                        <a href="/shop/allproduct">Shop <i class="fa fa-angle-down"></i></a>
+                                        <a routerLink="/shop">Shop <i class="fa fa-angle-down"></i></a>
                                         <!-- Mega Menu -->
                                         <div class="mega-menu">
                                             <ul class="mega-menu-inner">
-                                            	<!-- <c:forEach items="${listcatepa}" var="i"> -->
-                                            		<!-- <c:if test="${i.state == 1}"> -->
-		                                                <!-- Mega Menu Sub Link -->
-		                                                <li class="mega-menu-item" style="flex-basis: 20%">
-		                                                    <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}" 
-		                                                    	class="mega-menu-item-title">$i.cateParentsName</a>
-		                                                    <ul class="mega-menu-sub">
-		                                                    	<!-- <c:forEach items="${i.categories}" var="u"> -->
-		                                                    		<!-- <c:if test="${u.state == 1}"> -->
-			                                                        	<li><a href="/shop/findByCategory?categoryid=${u.cateID}">$u.cateName</a></li>
-			                                                        <!-- </c:if> -->
-		                                                        <!-- </c:forEach> -->
-		                                                    </ul>
-		                                                </li>
-	                                                <!-- </c:if> -->
+                                                <!-- <c:forEach items="${listcatepa}" var="i"> -->
+                                                <!-- <c:if test="${i.state == 1}"> -->
+                                                <!-- Mega Menu Sub Link -->
+                                                <li class="mega-menu-item" style="flex-basis: 20%">
+                                                    <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}"
+                                                        class="mega-menu-item-title">$i.cateParentsName</a>
+                                                    <ul class="mega-menu-sub">
+                                                        <!-- <c:forEach items="${i.categories}" var="u"> -->
+                                                        <!-- <c:if test="${u.state == 1}"> -->
+                                                        <li><a
+                                                                href="/shop/findByCategory?categoryid=${u.cateID}">$u.cateName</a>
+                                                        </li>
+                                                        <!-- </c:if> -->
+                                                        <!-- </c:forEach> -->
+                                                    </ul>
+                                                </li>
+                                                <!-- </c:if> -->
                                                 <!-- </c:forEach> -->
                                             </ul>
                                         </div>
@@ -79,14 +79,12 @@
                                     <li>
                                         <a href="/contact">Contact Us</a>
                                     </li>
-                                    <!-- <c:if test="${not empty account && account.userrole.roleID==1}"> -->
-										<li><a href="/admin/home">Admin page</a></li>
-									<!-- </c:if>		 -->
+                                    <li><a *ngIf="isAdmin" routerLink="">Admin page</a></li>
                                 </ul>
                             </nav>
-                        </div> 
+                        </div>
                         <!-- End Header Main Menu Start -->
-                        
+
                         <!-- Start Header Action Link -->
                         <ul class="header-action-link action-color--black action-hover-color--golden">
                             <li>
@@ -95,11 +93,9 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                                <a routerLink="/cart">
                                     <i class="icon-bag"></i>
-                                    <!-- <c:if test="${account == null}"> -->
-                                    	<span class="item-count">0</span>
-                                    <!-- </c:if> -->
+                                    <span class="item-count">0</span>
                                 </a>
                             </li>
                             <li>
@@ -107,7 +103,7 @@
                                     <i class="icon-magnifier"></i>
                                 </a>
                             </li>
-                           
+
                         </ul>
                         <!-- End Header Action Link -->
                     </div>
@@ -129,17 +125,17 @@
                         <li>
                             <a href="index.html">
                                 <div class="logo">
-                                	
+
                                     <img src="/assets/static/images/logo/logo_red.png" alt="">
                                 </div>
                             </a>
                         </li>
                     </ul>
                 </div>
-                 <!-- End Mobile Left Side -->
+                <!-- End Mobile Left Side -->
 
-                 <!-- Start Mobile Right Side -->
-                 <div class="mobile-right-side">
+                <!-- Start Mobile Right Side -->
+                <div class="mobile-right-side">
                     <ul class="header-action-link action-color--black action-hover-color--golden">
                         <li>
                             <a href="#search">
@@ -152,11 +148,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#offcanvas-add-cart" class="offcanvas-toggle">
+                            <a routerLink="/cart">
                                 <i class="icon-bag"></i>
-                                <!-- <c:if test="${account == null}"> -->
-                                	<span class="item-count">0</span>
-                                <!-- </c:if> -->
+                                <span class="item-count">0</span>
                             </a>
                         </li>
                         <li>
@@ -165,8 +159,8 @@
                             </a>
                         </li>
                     </ul>
-                 </div>
-                 <!-- End Mobile Right Side -->
+                </div>
+                <!-- End Mobile Right Side -->
             </div>
         </div>
     </div>
@@ -187,28 +181,29 @@
             <div class="offcanvas-menu">
                 <ul>
                     <li>
-                        <a href="/home">"><span>Home</span></a>
+                        <a href="/home"><span>Home</span></a>
                     </li>
                     <li>
-                        <a href="/shop/allproduct">"><span>Shop</span></a>
+                        <a routerLink="/shop">"><span>Shop</span></a>
                         <!-- <c:forEach items="${listcatepa}" var="i"> -->
-                        	<!-- <c:if test="${i.state == 1}"> -->
-		                        <ul class="mobile-sub-menu">
-		                            <li>
-		                                <a href="shop/findByCateParents?categoryparentsid=${i.cateParentsID}">">$i.cateParentsName</a>
-		                                <ul class="mobile-sub-menu">
-		                                	<!-- <c:forEach items="${i.categories}" var="u"> -->
-		                                		<!-- <c:if test="${u.state == 1}"> -->
-		                                    		<li><a href="/shop/findByCategory?categoryid=${u.cateID}">">$u.cateName</a></li>
-		                                    	<!-- </c:if> -->
-		                                    <!-- </c:forEach> -->
-		                                </ul>
-		                            </li>
-		                        </ul>
-	                        <!-- </c:if> -->
+                        <!-- <c:if test="${i.state == 1}"> -->
+                        <ul class="mobile-sub-menu">
+                            <li>
+                                <a
+                                    href="shop/findByCateParents?categoryparentsid=${i.cateParentsID}">">$i.cateParentsName</a>
+                                <ul class="mobile-sub-menu">
+                                    <!-- <c:forEach items="${i.categories}" var="u"> -->
+                                    <!-- <c:if test="${u.state == 1}"> -->
+                                    <li><a href="/shop/findByCategory?categoryid=${u.cateID}">">$u.cateName</a></li>
+                                    <!-- </c:if> -->
+                                    <!-- </c:forEach> -->
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- </c:if> -->
                         <!-- </c:forEach> -->
                     </li>
-                    <li><a href="/contact">">Contact Us</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
                 </ul>
             </div> <!-- End Mobile Menu Nav -->
         </div> <!-- End Mobile Menu -->
@@ -217,9 +212,9 @@
         <div class="mobile-contact-info">
 
             <address class="address">
-                <span>Address: Số 1 VVN, Linh Chiểu, TP Thủ Đức</span> 
-                <span>Call Us: (+84) 123 456 789</span> 
-                <span>Email: support&#64;gmail.com</span>    
+                <span>Address: Số 1 VVN, Linh Chiểu, TP Thủ Đức</span>
+                <span>Call Us: (+84) 123 456 789</span>
+                <span>Email: support&#64;gmail.com</span>
             </address>
 
             <ul class="social-link">
@@ -230,9 +225,9 @@
             </ul>
 
             <ul class="user-link">
-                <li><a href="recentlyview">">Recently view</a></li>
+                <li><a href="recentlyview">Recently view</a></li>
                 <li><a href="cart">">Cart</a></li>
-                <li><a href="recentlyview">">Checkout</a></li>
+                <li><a href="recentlyview">Checkout</a></li>
             </ul>
         </div>
         <!-- End Mobile contact Info -->
@@ -247,29 +242,29 @@
         <button class="offcanvas-close" style="cursor: pointer"><i class="ion-android-close"></i></button>
     </div> <!-- End Offcanvas Header -->
     <!-- Start Offcanvas Mobile Menu Wrapper -->
-        <!-- Start Mobile contact Info -->
-        <div class="mobile-contact-info">
+    <!-- Start Mobile contact Info -->
+    <div class="mobile-contact-info">
 
-            <address class="address">
-                <span>Address: Số 1 VVN, Linh Chiểu, TP Thủ Đức</span> 
-                <span>Call Us: (+84) 123 456 789</span> 
-                <span>Email: support&#64;gmail.com</span>    
-            </address>
+        <address class="address">
+            <span>Address: Số 1 VVN, Linh Chiểu, TP Thủ Đức</span>
+            <span>Call Us: (+84) 123 456 789</span>
+            <span>Email: support&#64;gmail.com</span>
+        </address>
 
-            <ul class="social-link">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
+        <ul class="social-link">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
 
-            <ul class="user-link">
-                <li><a href="recentlyview">">Recently view</a></li>
-                <li><a href="cart">">Cart</a></li>
-                <li><a href="checkout">">Checkout</a></li>
-            </ul>
-        </div>
-        <!-- End Mobile contact Info -->
+        <ul class="user-link">
+            <li><a href="recentlyview">Recently view</a></li>
+            <li><a href="cart">Cart</a></li>
+            <li><a href="checkout">Checkout</a></li>
+        </ul>
+    </div>
+    <!-- End Mobile contact Info -->
 </div> <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
 
 <!-- Start Offcanvas Addcart Section -->
@@ -283,25 +278,29 @@
     <div class="offcanvas-add-cart-wrapper">
         <h4 class="offcanvas-title">Shopping Cart</h4>
         <!-- <c:forEach items="${cartitems}" var="i"> -->
-		        <ul class="offcanvas-cart">
-		            <li class="offcanvas-cart-item-single" style="margin-bottom: 20px">
-		                <div class="offcanvas-cart-item-block">
-		                    <a href="/shop/productdetails?id=${i.product.productID}" class="offcanvas-cart-item-image-link" style="display: inline-table;">
-		                        <img src="uploads/${i.product.imgLink1}" style="width: 90px; height: 90px; object-fit: cover" alt="" class="">
-		                    </a>
-		                    <div class="offcanvas-cart-item-content">
-		                        <a href="shop/productdetails?id=${i.product.productID}" class="offcanvas-cart-item-link">i.product.productName</a>
-		                        <div class="offcanvas-cart-item-details">
-		                            <span class="offcanvas-cart-item-details-quantity">$i.quantity x </span>
-		                            <span class="offcanvas-cart-item-details-price">$product.price</span>
-		                        </div>
-		                    </div>
-		                </div>
-		                <div class="offcanvas-cart-item-delete text-right">
-		                    <a href="deletecartitem?id=${i.cartItemsID}" class="offcanvas-cart-item-delete"><i class="fa fa-trash-o"></i></a>
-		                </div>
-		            </li>
-		        </ul>
+        <ul class="offcanvas-cart">
+            <li class="offcanvas-cart-item-single" style="margin-bottom: 20px">
+                <div class="offcanvas-cart-item-block">
+                    <a href="/shop/productdetails?id=${i.product.productID}" class="offcanvas-cart-item-image-link"
+                        style="display: inline-table;">
+                        <img src="uploads/${i.product.imgLink1}" style="width: 90px; height: 90px; object-fit: cover"
+                            alt="" class="">
+                    </a>
+                    <div class="offcanvas-cart-item-content">
+                        <a href="shop/productdetails?id=${i.product.productID}"
+                            class="offcanvas-cart-item-link">i.product.productName</a>
+                        <div class="offcanvas-cart-item-details">
+                            <span class="offcanvas-cart-item-details-quantity">$i.quantity x </span>
+                            <span class="offcanvas-cart-item-details-price">$product.price</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="offcanvas-cart-item-delete text-right">
+                    <a href="deletecartitem?id=${i.cartItemsID}" class="offcanvas-cart-item-delete"><i
+                            class="fa fa-trash-o"></i></a>
+                </div>
+            </li>
+        </ul>
         <!-- </c:forEach> -->
         <div class="offcanvas-cart-total-price">
             <span class="offcanvas-cart-total-price-text">Subtotal:</span>
@@ -319,7 +318,7 @@
 <div id="search" class="search-modal">
     <button type="button" class="close">×</button>
     <form action="/WebFinalProject/shop/search" method="get">
-        <input type="search" placeholder="type keyword(s) here" name="nameprod"/>
+        <input type="search" placeholder="type keyword(s) here" name="nameprod" />
         <button type="submit" class="btn btn-lg btn-golden">Search</button>
     </form>
 </div>

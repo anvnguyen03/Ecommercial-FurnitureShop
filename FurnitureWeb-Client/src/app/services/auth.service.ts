@@ -12,6 +12,10 @@ export class AuthService {
 
   private token?: string | null
 
+  register(singUpRequest: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseURL}/signup`, singUpRequest)
+  }
+
   postLogin(signInRequest: any): Observable<any> {
     return this.httpClient.post<any>(`${this.baseURL}/signin`, signInRequest)
   }
@@ -45,11 +49,20 @@ export class AuthService {
     localStorage.setItem('token', token)
   }
 
+  setUser(user: any) {
+    localStorage.setItem('user', user)
+  }
+
   getToken() {
     return localStorage.getItem('token')
   }
 
+  getUser() {
+    return localStorage.getItem('user')
+  }
+
   logout() {
     localStorage.removeItem('token')
+    localStorage.removeItem('user')
   }
 }

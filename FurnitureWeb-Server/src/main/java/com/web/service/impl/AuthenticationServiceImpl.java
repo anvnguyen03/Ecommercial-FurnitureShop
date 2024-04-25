@@ -3,6 +3,8 @@ package com.web.service.impl;
 import java.util.HashMap;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.web.dto.JwtAuthenticationResponse;
 import com.web.dto.SignInRequest;
 import com.web.dto.SignUpRequest;
+import com.web.dto.UserResponse;
 import com.web.dto.ValidateTokenRequest;
 import com.web.entity.Role;
 import com.web.entity.Status;
@@ -36,14 +39,14 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	private final UserService userService;
 	
 	@Override
-	public User signup(SignUpRequest signUpRequest) {
+	public ResponseEntity<?> signup(SignUpRequest signUpRequest) {
 		User user = new User();
 
 		Optional<User> userExisted = userRepository.findByEmail(signUpRequest.getEmail());
 		
 		// kiểm tra xem đã tồn tại User này chưa
 		if (userExisted.isPresent()) {
-			return null;
+			return new ResponseEntity<>("User already existes", HttpStatus.NOT_ACCEPTABLE);
 		} else {
 			user.setEmail(signUpRequest.getEmail());
 			user.setFullname(signUpRequest.getFullname());
@@ -51,7 +54,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			user.setStatus(Status.ACTIVE);
 			user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
 
-			return userRepository.save(user);
+			userRepository.save(user);
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
 	}
 
@@ -75,7 +79,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 							.orElseThrow(() -> new IllegalArgumentException("Invalid Email or password"));
 					var jwt = jwtService.generateToken(user);
 					var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+					
+					UserResponse userRes = new UserResponse();
+					userRes.setUserId(user.getId());
+					userRes.setFullname(user.getFullname());
 
+					jwtAuthenticationResponse.setUser(userRes);
 					jwtAuthenticationResponse.setToken(jwt);
 					jwtAuthenticationResponse.setRefreshToken(refreshToken);
 				} else {

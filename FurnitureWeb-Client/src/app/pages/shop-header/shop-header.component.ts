@@ -1,16 +1,36 @@
 import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shop-header',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, CommonModule],
   templateUrl: './shop-header.component.html',
   styleUrl: './shop-header.component.css'
 })
 export class ShopHeaderComponent implements OnInit {
-  constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
+
+  username?: string
+  isLoggedIn: boolean = false
+  isAdmin: boolean = false
+
+  constructor(private renderer: Renderer2,
+    private elementRef: ElementRef,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    const token = { token: this.authService.getToken() }
+    this.authService.validateToken(token).subscribe({
+      next: (response) => {
+        this.isLoggedIn = response
+        this.username = this.authService.getUsername()
+        this.isAdmin = this.authService.getUserRole() == "ADMIN" ? true : false
+      }
+    })
+
     this.offCanvasFunctionCart()
     this.offSearchModalFunction()
   }
