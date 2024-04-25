@@ -1,0 +1,94 @@
+import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular/core';
+
+@Component({
+  selector: 'app-shop-header',
+  standalone: true,
+  imports: [],
+  templateUrl: './shop-header.component.html',
+  styleUrl: './shop-header.component.css'
+})
+export class ShopHeaderComponent implements OnInit {
+  constructor(private renderer: Renderer2, private elementRef: ElementRef) { }
+
+  ngOnInit(): void {
+    this.offCanvasFunctionCart()
+    this.offSearchModalFunction()
+  }
+
+  offCanvasFunctionCart() {
+    const offCanvasToggle = this.elementRef.nativeElement.querySelector('.offcanvas-toggle');
+    const offCanvas = this.elementRef.nativeElement.querySelector('.offcanvas');
+    const offCanvasOverlay = this.elementRef.nativeElement.querySelector('.offcanvas-overlay');
+    const mobileMenuToggle = this.elementRef.nativeElement.querySelector('.mobile-menu-toggle');
+
+    offCanvasToggle.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+      const target = offCanvasToggle.getAttribute('href');
+      document.body.classList.add('offcanvas-open');
+      offCanvas.classList.add('offcanvas-open');
+      this.renderer.setStyle(offCanvasOverlay, 'display', 'block');
+      if (offCanvasToggle.parentElement.classList.contains('mobile-menu-toggle')) {
+        offCanvasToggle.classList.add('close');
+      }
+    });
+
+    const offCanvasClose = this.elementRef.nativeElement.querySelector('.offcanvas-close');
+    offCanvasClose.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+      document.body.classList.remove('offcanvas-open');
+      offCanvas.classList.remove('offcanvas-open');
+      this.renderer.setStyle(offCanvasOverlay, 'display', 'none');
+      mobileMenuToggle.querySelector('a').classList.remove('close');
+    });
+
+    offCanvasOverlay.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+      document.body.classList.remove('offcanvas-open');
+      offCanvas.classList.remove('offcanvas-open');
+      this.renderer.setStyle(offCanvasOverlay, 'display', 'none');
+      mobileMenuToggle.querySelector('a').classList.remove('close');
+    });
+  }
+
+  offSearchModalFunction() {
+    const searchLink = this.elementRef.nativeElement.querySelector('a[href="#search"]');
+    const searchContainer = this.elementRef.nativeElement.querySelector('#search');
+    const searchInput = this.elementRef.nativeElement.querySelector('#search > form > input[type="search"]');
+    const closeButton = this.elementRef.nativeElement.querySelector('#search button.close');
+
+    searchLink.addEventListener('click', (event: Event) => {
+      event.preventDefault();
+      searchContainer.classList.add('open');
+      searchInput.focus();
+    });
+
+    searchContainer.addEventListener('click', (event: Event) => {
+      if ((event.target as HTMLElement).classList.contains('close')) {
+        searchContainer.classList.remove('open');
+      }
+    });
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+
+    const stickyHeader = this.elementRef.nativeElement.querySelector('.sticky-header');
+    if (stickyHeader) {
+      if (scroll < 100) {
+        stickyHeader.classList.remove('sticky');
+      } else {
+        stickyHeader.classList.add('sticky');
+      }
+    }
+
+    const separateStickyBar = this.elementRef.nativeElement.querySelector('.separate-sticky-bar');
+    if (separateStickyBar) {
+      if (scroll < 100) {
+        separateStickyBar.classList.remove('sticky');
+      } else {
+        separateStickyBar.classList.add('sticky');
+      }
+    }
+  }
+}
