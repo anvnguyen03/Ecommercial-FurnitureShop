@@ -37,7 +37,11 @@ export class LoginComponent {
         } else {
           this.authService.setToken(response.token)
           this.authService.setUser(JSON.stringify(response.user))
-          this.router.navigate(['/home'])
+          if (this.authService.getUserRole() == 'ADMIN') {
+            this.router.navigate(['/admin'])
+          } else {
+            this.router.navigate(['/home'])
+          }
         }
       }
     });

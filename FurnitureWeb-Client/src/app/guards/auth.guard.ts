@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (
   const router: Router = inject(Router)
 
   // các route yêu cầu đăng nhập
-  const protectedRoute: string[] = ['/tests']
+  const protectedRoute: string[] = ['/shop']
 
   const token = { token: authService.getToken() }
 

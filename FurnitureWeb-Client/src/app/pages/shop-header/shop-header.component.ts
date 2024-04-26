@@ -2,6 +2,8 @@ import { Component, ElementRef, HostListener, OnInit, Renderer2 } from '@angular
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { CategoryService } from '../../services/category.service';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-shop-header',
@@ -15,11 +17,13 @@ export class ShopHeaderComponent implements OnInit {
   username?: string
   isLoggedIn: boolean = false
   isAdmin: boolean = false
+  categories: Category[] = []
 
   constructor(private renderer: Renderer2,
     private elementRef: ElementRef,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private cateService: CategoryService) { }
 
   ngOnInit(): void {
     const token = { token: this.authService.getToken() }
@@ -31,8 +35,19 @@ export class ShopHeaderComponent implements OnInit {
       }
     })
 
+    this.getAllCategories()
+
     this.offCanvasFunctionCart()
     this.offSearchModalFunction()
+  }
+
+  getAllCategories() {
+    this.cateService.getAllCategories().subscribe({
+      next: (response) => {
+        this.categories = response
+        console.log(this.categories)
+      }
+    })
   }
 
   offCanvasFunctionCart() {

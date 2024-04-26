@@ -6,10 +6,11 @@ import { LogoutComponent } from './pages/logout/logout.component';
 import { loggedInGuard } from './guards/logged-in.guard';
 import { ShopProductComponent } from './pages/shop-product/shop-product.component';
 import { ProductComponent } from './pages/product/product.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
-    {path: "shop", component: ShopProductComponent},
+    {path: "shop", component: ShopProductComponent, canActivate: [authGuard]},
     {path: "shop/:category", component: ShopProductComponent},
     {path: "product/:id", component: ProductComponent},
     {path: "login", component: LoginComponent, canActivate: [loggedInGuard]},

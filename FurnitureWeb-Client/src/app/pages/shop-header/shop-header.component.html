@@ -55,24 +55,18 @@
                                         <!-- Mega Menu -->
                                         <div class="mega-menu">
                                             <ul class="mega-menu-inner">
-                                                <!-- <c:forEach items="${listcatepa}" var="i"> -->
-                                                <!-- <c:if test="${i.state == 1}"> -->
+
                                                 <!-- Mega Menu Sub Link -->
-                                                <li class="mega-menu-item" style="flex-basis: 20%">
+                                                <li *ngFor="let category of categories" class="mega-menu-item" style="flex-basis: 20%">
                                                     <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}"
-                                                        class="mega-menu-item-title">$i.cateParentsName</a>
+                                                        class="mega-menu-item-title">{{category.name}}</a>
                                                     <ul class="mega-menu-sub">
-                                                        <!-- <c:forEach items="${i.categories}" var="u"> -->
-                                                        <!-- <c:if test="${u.state == 1}"> -->
                                                         <li><a
-                                                                href="/shop/findByCategory?categoryid=${u.cateID}">$u.cateName</a>
+                                                                href="/shop/findByCategory?categoryid=${u.cateID}">{{category.id}}</a>
                                                         </li>
-                                                        <!-- </c:if> -->
-                                                        <!-- </c:forEach> -->
                                                     </ul>
                                                 </li>
-                                                <!-- </c:if> -->
-                                                <!-- </c:forEach> -->
+                                                
                                             </ul>
                                         </div>
                                     </li>
