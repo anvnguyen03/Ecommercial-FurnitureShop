@@ -4,7 +4,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.web.dto.ProductDto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,9 +33,24 @@ public class Product {
 	
 	private Long price;
 	
+	@Lob
+	@Column(columnDefinition = "mediumblob")
+	private byte[] img;
+	
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	@JoinColumn(name = "category_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private Category category;
+	
+	public ProductDto getDto() {
+		ProductDto productDto = new ProductDto();
+		productDto.setId(id);
+		productDto.setName(name);
+		productDto.setDescription(description);
+		productDto.setPrice(price);
+		productDto.setByteImg(img);
+		productDto.setCategoryId(category.getId());
+		return productDto;
+	}
 }

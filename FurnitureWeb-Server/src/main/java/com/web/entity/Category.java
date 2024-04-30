@@ -2,7 +2,6 @@ package com.web.entity;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +25,6 @@ public class Category {
 	@Lob
 	private String description;
 	
-//	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "Product")
-//	private List<Product> product;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
+	private List<Product> products;
 }

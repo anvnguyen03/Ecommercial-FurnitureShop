@@ -5,19 +5,33 @@ import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { AuthService } from '../../services/auth.service';
 import { RouterLink } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, ShopHeaderComponent, ShopFooterComponent],
+  imports: [RouterLink, ShopHeaderComponent, ShopFooterComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit, AfterViewInit  {
+export class HomeComponent implements OnInit, AfterViewInit {
 
-  constructor(private authService: AuthService) { }
+  products: any[] = []
+
+  constructor(private authService: AuthService,
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
+    this.productService.getAllProduct().subscribe({
+      next: (response: any) => {
+        response.forEach((element: any) => {
+          element.processedImg = 'data:image/jpeg;base64,' + element.img
+          this.products.push(element)
+        });
+      }
+    })
   }
 
   ngAfterViewInit(): void {

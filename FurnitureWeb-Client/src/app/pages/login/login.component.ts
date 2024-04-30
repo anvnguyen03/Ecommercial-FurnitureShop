@@ -38,7 +38,7 @@ export class LoginComponent {
           this.authService.setToken(response.token)
           this.authService.setUser(JSON.stringify(response.user))
           if (this.authService.getUserRole() == 'ADMIN') {
-            this.router.navigate(['/admin'])
+            this.router.navigate(['/admin/revenue'])
           } else {
             this.router.navigate(['/home'])
           }

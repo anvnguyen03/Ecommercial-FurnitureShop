@@ -7,6 +7,7 @@ import { loggedInGuard } from './guards/logged-in.guard';
 import { ShopProductComponent } from './pages/shop-product/shop-product.component';
 import { ProductComponent } from './pages/product/product.component';
 import { authGuard } from './guards/auth.guard';
+import { AdminRevenueComponent } from './pages/admin pages/admin-revenue/admin-revenue.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: "login", component: LoginComponent, canActivate: [loggedInGuard]},
     {path: "register", component: RegisterComponent, canActivate: [loggedInGuard]},
     {path: "logout", component: LogoutComponent},
+    {path: "admin/revenue", component: AdminRevenueComponent, canActivate: [authGuard]},
     {path: "", redirectTo: "home", pathMatch: "full"}
 ];

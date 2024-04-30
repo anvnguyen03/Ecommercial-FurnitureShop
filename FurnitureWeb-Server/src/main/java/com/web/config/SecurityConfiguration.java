@@ -48,7 +48,7 @@ public class SecurityConfiguration {
 			.csrf(csrf -> csrf.disable())
 			.cors(cors -> cors.disable())	// cors filter be executed after all authen and author filters by default
 			.authorizeHttpRequests(request -> request
-												.requestMatchers("/api/v1/auth/**", "/api/v1/category/**")
+												.requestMatchers("/api/v1/auth/**", "/api/v1/category/**", "/api/v1/product/**")
 												.permitAll()
 												.requestMatchers("/api/v1/admin/**").hasAnyAuthority(Role.ADMIN.name())
 												.requestMatchers("/api/v1/user").hasAnyAuthority(Role.CUSTOMER.name())

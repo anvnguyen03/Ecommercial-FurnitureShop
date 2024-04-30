@@ -11,9 +11,6 @@ export const authGuard: CanActivateFn = (
   const authService: AuthService = inject(AuthService)
   const router: Router = inject(Router)
 
-  // các route yêu cầu đăng nhập
-  const protectedRoute: string[] = ['/shop']
-
   const token = { token: authService.getToken() }
 
   /**
@@ -43,11 +40,11 @@ export const authGuard: CanActivateFn = (
     map((response) => {
       if (response == true) {
         // Nếu token hợp lệ, cho phép truy cập route 
-        return protectedRoute.includes(state.url) ? true : router.createUrlTree(['/login']);
+        return true
       } else {
-        localStorage.removeItem('token');
+        localStorage.removeItem('token')
         // Nếu token không hợp lệ, chuyển hướng đến trang đăng nhập
-        return router.createUrlTree(['/login']);
+        return router.createUrlTree(['/login'])
       }
     })
   )
