@@ -2,6 +2,8 @@ package com.web.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.web.entity.ProductStatus;
+
 import lombok.Data;
 
 @Data
@@ -13,10 +15,22 @@ public class ProductDto {
 	private String description;
 
 	private Long price;
+	
+	private int stoke;
+	
+	private ProductStatus status;
 
-	private byte[] byteImg;
+	private byte[] byteImg1;
+	
+	private byte[] byteImg2;
+	
+	private byte[] byteImg3;
 
 	private Long categoryId;
 	
-	private MultipartFile img;
+	private MultipartFile img1;
+	
+	private MultipartFile img2;
+	
+	private MultipartFile img3;
 }

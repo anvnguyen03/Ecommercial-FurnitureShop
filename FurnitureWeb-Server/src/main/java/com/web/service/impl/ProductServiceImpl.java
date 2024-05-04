@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.web.dto.ProductDto;
 import com.web.entity.Category;
 import com.web.entity.Product;
+import com.web.entity.ProductStatus;
 import com.web.repository.CategoryRepository;
 import com.web.repository.ProductRepository;
 import com.web.service.ProductService;
@@ -29,7 +30,11 @@ public class ProductServiceImpl implements ProductService{
 		product.setName(productDto.getName());
 		product.setDescription(productDto.getDescription());
 		product.setPrice(productDto.getPrice());
-		product.setImg(productDto.getImg().getBytes());
+		product.setStoke(productDto.getStoke());
+		product.setStatus(ProductStatus.AVAILABLE);
+		product.setImg1(productDto.getImg1().getBytes());
+		product.setImg2(productDto.getImg2().getBytes());
+		product.setImg3(productDto.getImg3().getBytes());
 		
 		Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow();
 		product.setCategory(category);

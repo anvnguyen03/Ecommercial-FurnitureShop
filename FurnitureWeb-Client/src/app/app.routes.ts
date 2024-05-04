@@ -8,6 +8,8 @@ import { ShopProductComponent } from './pages/shop-product/shop-product.componen
 import { ProductComponent } from './pages/product/product.component';
 import { authGuard } from './guards/auth.guard';
 import { AdminRevenueComponent } from './pages/admin pages/admin-revenue/admin-revenue.component';
+import { AdminProductComponent } from './pages/admin pages/admin-product/admin-product.component';
+import { AdminAddProductComponent } from './pages/admin pages/admin-add-product/admin-add-product.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -18,5 +20,7 @@ export const routes: Routes = [
     {path: "register", component: RegisterComponent, canActivate: [loggedInGuard]},
     {path: "logout", component: LogoutComponent},
     {path: "admin/revenue", component: AdminRevenueComponent, canActivate: [authGuard]},
+    {path: "admin/product", component: AdminProductComponent, canActivate: [authGuard]},
+    {path: "admin/addproduct", component: AdminAddProductComponent, canActivate: [authGuard]},
     {path: "", redirectTo: "home", pathMatch: "full"}
 ];

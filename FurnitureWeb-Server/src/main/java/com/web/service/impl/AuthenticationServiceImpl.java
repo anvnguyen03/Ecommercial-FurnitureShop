@@ -46,7 +46,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 		
 		// kiểm tra xem đã tồn tại User này chưa
 		if (userExisted.isPresent()) {
-			return new ResponseEntity<>("User already existes", HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<>("User already existed", HttpStatus.NOT_ACCEPTABLE);
 		} else {
 			user.setEmail(signUpRequest.getEmail());
 			user.setFullname(signUpRequest.getFullname());
