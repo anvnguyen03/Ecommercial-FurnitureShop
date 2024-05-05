@@ -55,4 +55,10 @@ public class ProductServiceImpl implements ProductService{
 		products.stream().map(Product::getDto).collect(Collectors.toList());
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<?> getAllProductsByName(String name) {
+		List<Product> products = productRepository.findAllByNameContaining(name);
+		products.stream().map(Product::getDto).collect(Collectors.toList());
+		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
 }

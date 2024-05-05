@@ -28,11 +28,11 @@ public class SimpleCorsFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        // Khởi tạo
+       
     }
 
     @Override
     public void destroy() {
-        // Hủy
+       
     }
 }

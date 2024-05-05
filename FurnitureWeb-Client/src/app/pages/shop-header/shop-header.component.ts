@@ -3,12 +3,13 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/category';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-shop-header',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule],
   templateUrl: './shop-header.component.html',
   styleUrl: './shop-header.component.css'
 })
@@ -17,13 +18,17 @@ export class ShopHeaderComponent implements OnInit {
   username?: string
   isLoggedIn: boolean = false
   isAdmin: boolean = false
-  categories: Category[] = []
+  categories: any[] = []
+
+  searchForm!: FormGroup
 
   constructor(private renderer: Renderer2,
     private elementRef: ElementRef,
     private router: Router,
     private authService: AuthService,
-    private cateService: CategoryService) { }
+    private cateService: CategoryService,
+    private productService: ProductService,
+    private fb: FormBuilder) { }
 
   ngOnInit(): void {
     const token = { token: this.authService.getToken() }
@@ -35,10 +40,24 @@ export class ShopHeaderComponent implements OnInit {
       }
     })
 
+    this.searchForm = this.fb.group({
+      term: [null, [Validators.required]]
+    })
+
     this.getAllCategories()
 
     this.offCanvasFunctionCart()
     this.offSearchModalFunction()
+  }
+
+  search() {
+    const term = this.searchForm.get('term')?.value
+    if (!term) {
+      return;
+    }
+    this.router.navigateByUrl('/refreshing', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/shop/term=${term}`])
+    })
   }
 
   getAllCategories() {

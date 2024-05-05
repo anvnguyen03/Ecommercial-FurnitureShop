@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import * as AOS from 'aos';
 import Swiper from 'swiper';
 import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
@@ -27,7 +26,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.productService.getAllProduct().subscribe({
       next: (response: any) => {
         response.forEach((element: any) => {
-          element.processedImg = 'data:image/jpeg;base64,' + element.img
+          element.processedImg1 = 'data:image/jpeg;base64,' + element.img1
+          element.processedImg2 = 'data:image/jpeg;base64,' + element.img2
+          element.processedImg3 = 'data:image/jpeg;base64,' + element.img3
           this.products.push(element)
         });
       }
@@ -35,10 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // Initialize AOS library
-    AOS.init({
-      once: true
-    });
+
   }
 
   heroSlider() {

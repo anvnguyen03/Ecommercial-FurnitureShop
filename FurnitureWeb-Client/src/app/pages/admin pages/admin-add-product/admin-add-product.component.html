@@ -103,7 +103,10 @@
 
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Product Name</label>
+                                            <label class="form-label" for="formValidationName">Product Name 
+                                                <label *ngIf="addProductForm.get('name')?.hasError('required')" class="error"> * This input is required!</label>
+                                            </label>
+                                            
                                             <input type="text" id="formValidationName" class="form-control"
                                                 placeholder="working desk" formControlName="name">
                                             <div
@@ -112,7 +115,9 @@
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Category</label>
+                                            <label class="form-label" for="formValidationName">Category 
+                                                <label *ngIf="addProductForm.get('categoryId')?.hasError('required')" class="error"> * This input is required!</label>
+                                            </label>
                                             <div class="input-group">
                                                 <label class="input-group-text"
                                                     for="inputGroupSelect01">Category</label>
@@ -123,17 +128,21 @@
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Price</label>
+                                            <label class="form-label" for="formValidationName">Price 
+                                                <label *ngIf="addProductForm.get('price')?.hasError('required')" class="error"> * This input is required!</label>
+                                            </label>
                                             <div class="input-group">
                                                 <span class="input-group-text">$</span>
 
-                                                <input type="text" class="form-control" formControlName="price"
+                                                <input type="number" class="form-control" formControlName="price"
                                                     aria-label="Dollar amount (with dot and two decimal places)">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Stoke</label>
+                                            <label class="form-label" for="formValidationName">Stoke 
+                                                <label *ngIf="addProductForm.get('stoke')?.hasError('required')" class="error"> * This input is required!</label>
+                                            </label>
                                             <div class="input-group">
                                                 <input type="number" class="form-control" formControlName="stoke"
                                                     aria-label="Dollar amount (with dot and two decimal places)">
@@ -142,8 +151,9 @@
 
                                         <div class="col-md-6 fv-plugins-icon-container">
                                             <div>
-                                                <label for="exampleFormControlTextarea1"
-                                                    class="form-label">Description</label>
+                                                <label for="exampleFormControlTextarea1" class="form-label">Description 
+                                                    <label *ngIf="addProductForm.get('description')?.hasError('required')" class="error"> * This input is required!</label>
+                                                </label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                                     formControlName="description"></textarea>
                                             </div>
@@ -161,7 +171,9 @@
                                                 <img id="previewImage1" [src]="imagePreview1"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
-                                            <label for="formValidationFile" class="form-label">Product img1</label>
+                                            <label for="formValidationFile" class="form-label">Product img1 
+                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                                            </label>
                                             <input class="form-control" type="file" id="formValidationFile1"
                                                 name="imgLink1" (change)="onFileSelected($event, 1)">
                                             <div
@@ -174,7 +186,9 @@
                                                 <img id="previewImage2" [src]="imagePreview2"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
-                                            <label for="formValidationFile" class="form-label">Product img2</label>
+                                            <label for="formValidationFile" class="form-label">Product img2 
+                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                                            </label>
                                             <input class="form-control" type="file" id="formValidationFile2"
                                                 name="imgLink2" (change)="onFileSelected($event, 2)">
                                             <div
@@ -187,7 +201,9 @@
                                                 <img id="previewImage3" [src]="imagePreview3"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
-                                            <label for="formValidationFile" class="form-label">Product img3</label>
+                                            <label for="formValidationFile" class="form-label">Product img3 
+                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                                            </label>
                                             <input class="form-control" type="file" id="formValidationFile3"
                                                 name="imgLink3" (change)="onFileSelected($event, 3)">
                                             <div

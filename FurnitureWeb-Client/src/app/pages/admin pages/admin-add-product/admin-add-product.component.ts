@@ -67,7 +67,7 @@ export class AdminAddProductComponent implements OnInit {
 
       this.adminService.addProduct(product).subscribe({
         next: (resp) => {
-          if (resp.statusCodeValue == 201) {  // 201 - CREATED
+          if (resp.id) {
             this.snackBar.open('Product created successfully!', 'Close', {duration: 5000})
             this.router.navigate(['/admin/product'])
           } else {

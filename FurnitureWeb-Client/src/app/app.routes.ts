@@ -22,5 +22,6 @@ export const routes: Routes = [
     {path: "admin/revenue", component: AdminRevenueComponent, canActivate: [authGuard]},
     {path: "admin/product", component: AdminProductComponent, canActivate: [authGuard]},
     {path: "admin/addproduct", component: AdminAddProductComponent, canActivate: [authGuard]},
+    {path: "refreshing", redirectTo: "home"},
     {path: "", redirectTo: "home", pathMatch: "full"}
 ];

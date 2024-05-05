@@ -9,4 +9,5 @@ import com.web.dto.ProductDto;
 public interface ProductService {
 	ResponseEntity<?> addProduct(ProductDto productDto) throws IOException;
 	ResponseEntity<?> getAllProducts();
+	ResponseEntity<?> getAllProductsByName(String name);
 }

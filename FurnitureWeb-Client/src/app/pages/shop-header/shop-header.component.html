@@ -60,11 +60,11 @@
                                                 <li *ngFor="let category of categories" class="mega-menu-item" style="flex-basis: 20%">
                                                     <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}"
                                                         class="mega-menu-item-title">{{category.name}}</a>
-                                                    <ul class="mega-menu-sub">
+                                                    <!-- <ul class="mega-menu-sub">
                                                         <li><a
                                                                 href="/shop/findByCategory?categoryid=${u.cateID}">{{category.id}}</a>
                                                         </li>
-                                                    </ul>
+                                                    </ul> -->
                                                 </li>
                                                 
                                             </ul>
@@ -261,58 +261,11 @@
     <!-- End Mobile contact Info -->
 </div> <!-- ...:::: End Offcanvas Mobile Menu Section:::... -->
 
-<!-- Start Offcanvas Addcart Section -->
-<div id="offcanvas-add-cart" class="offcanvas offcanvas-rightside offcanvas-add-cart-section">
-    <!-- Start Offcanvas Header -->
-    <div class="offcanvas-header text-right">
-        <button class="offcanvas-close" style="cursor: pointer"><i class="ion-android-close"></i></button>
-    </div> <!-- End Offcanvas Header -->
-
-    <!-- Start  Offcanvas Addcart Wrapper -->
-    <div class="offcanvas-add-cart-wrapper">
-        <h4 class="offcanvas-title">Shopping Cart</h4>
-        <!-- <c:forEach items="${cartitems}" var="i"> -->
-        <ul class="offcanvas-cart">
-            <li class="offcanvas-cart-item-single" style="margin-bottom: 20px">
-                <div class="offcanvas-cart-item-block">
-                    <a href="/shop/productdetails?id=${i.product.productID}" class="offcanvas-cart-item-image-link"
-                        style="display: inline-table;">
-                        <img src="uploads/${i.product.imgLink1}" style="width: 90px; height: 90px; object-fit: cover"
-                            alt="" class="">
-                    </a>
-                    <div class="offcanvas-cart-item-content">
-                        <a href="shop/productdetails?id=${i.product.productID}"
-                            class="offcanvas-cart-item-link">i.product.productName</a>
-                        <div class="offcanvas-cart-item-details">
-                            <span class="offcanvas-cart-item-details-quantity">$i.quantity x </span>
-                            <span class="offcanvas-cart-item-details-price">$product.price</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="offcanvas-cart-item-delete text-right">
-                    <a href="deletecartitem?id=${i.cartItemsID}" class="offcanvas-cart-item-delete"><i
-                            class="fa fa-trash-o"></i></a>
-                </div>
-            </li>
-        </ul>
-        <!-- </c:forEach> -->
-        <div class="offcanvas-cart-total-price">
-            <span class="offcanvas-cart-total-price-text">Subtotal:</span>
-            <span class="offcanvas-cart-total-price-value">$total</span>
-        </div>
-        <ul class="offcanvas-cart-action-button">
-            <li><a href="/cart/>" class="btn btn-block btn-golden">View Cart</a></li>
-            <li><a href="/checkout" class=" btn btn-block btn-golden mt-5">Checkout</a></li>
-        </ul>
-    </div> <!-- End  Offcanvas Addcart Wrapper -->
-
-</div> <!-- End  Offcanvas Addcart Section -->
-
 <!-- Start Offcanvas Search Bar Section -->
 <div id="search" class="search-modal">
     <button type="button" class="close">×</button>
-    <form action="/WebFinalProject/shop/search" method="get">
-        <input type="search" placeholder="type keyword(s) here" name="nameprod" />
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <input type="search" placeholder="type keyword(s) here" formControlName="term" />
         <button type="submit" class="btn btn-lg btn-golden">Search</button>
     </form>
 </div>

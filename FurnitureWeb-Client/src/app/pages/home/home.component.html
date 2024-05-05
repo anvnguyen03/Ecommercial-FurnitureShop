@@ -68,7 +68,7 @@
 			<div class="row">
 				<!-- Start Service Promo Single Item -->
 				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="service-promo-single-item">
+					<div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="0">
 						<div class="image">
 							<img src="/assets/static/images/icons/service-promo-1.png" alt="">
 						</div>
@@ -81,7 +81,7 @@
 				<!-- End Service Promo Single Item -->
 				<!-- Start Service Promo Single Item -->
 				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="service-promo-single-item">
+					<div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="200">
 						<div class="image">
 							<img src="/assets/static/images/icons/service-promo-2.png" alt="">
 						</div>
@@ -94,7 +94,7 @@
 				<!-- End Service Promo Single Item -->
 				<!-- Start Service Promo Single Item -->
 				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="service-promo-single-item">
+					<div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="400">
 						<div class="image">
 							<img src="/assets/static/images/icons/service-promo-3.png" alt="">
 						</div>
@@ -107,7 +107,7 @@
 				<!-- End Service Promo Single Item -->
 				<!-- Start Service Promo Single Item -->
 				<div class="col-lg-3 col-sm-6 col-12">
-					<div class="service-promo-single-item">
+					<div class="service-promo-single-item" data-aos="fade-up"  data-aos-delay="600">
 						<div class="image">
 							<img src="/assets/static/images/icons/service-promo-4.png" alt="">
 						</div>
@@ -127,7 +127,7 @@
 <!-- Start Product Default Slider Section -->
 <div class="product-default-slider-section section-top-gap-100 section-fluid">
 	<!-- Start Section Content Text Area -->
-	<div class="section-title-wrapper">
+	<div class="section-title-wrapper" data-aos="fade-up"  data-aos-delay="0">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -142,7 +142,7 @@
 		</div>
 	</div>
 	<!-- Start Section Content Text Area -->
-	<div class="product-wrapper">
+	<div class="product-wrapper" data-aos="fade-up"  data-aos-delay="200">
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
@@ -161,8 +161,8 @@
 									<div class="image-box">
 										<a routerLink="/product/{{product.id}}" class="image-link">
 											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
+											<img [src]="product.processedImg1" alt="">
+											<img [src]="product.processedImg2" alt="">
 										</a>
 										<div class="tag">
 											<span>new</span>
@@ -172,7 +172,7 @@
 												<a href="/addtocart?id=${i.productID}"
 													data-bs-target="#modalAddcart">Add to Cart</a>
 											</div>
-											<div class="action-link-right">
+											<div class="action-link-right">	
 												<a href="/shop/productdetails?id=${i.productID}"
 													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
 												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
@@ -183,283 +183,7 @@
 									<div class="content">
 										<div class="content-left">
 											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
-											</h6>
-											<!-- <ul class="review-star">
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="fill"><i class="ion-android-star"></i></li>
-	                                                <li class="empty"><i class="ion-android-star"></i></li>
-	                                            </ul> -->
-										</div>
-
-									</div>
-									<div class="content-right">
-										<span class="price">${{product.price}}</span>
-									</div>
-								</div>
-								<!-- End Product Default Single Item -->
-
-								<!-- Start Product Default Single Item -->
-								<div *ngFor="let product of products" class="product-default-single-item product-color--golden swiper-slide"
-									style="width: 265.75px; margin-right: 30px;">
-									<div class="image-box">
-										<a routerLink="/product/{{product.id}}" class="image-link">
-											<!-- <img src="/assets/static/images/hero-slider/hero-slider-1.jpg" alt=""> -->
-											<img [src]="product.processedImg" alt="">
-											<img src="/assets/static/images/hero-slider/hero-slider-2.jpg" alt="">
-										</a>
-										<div class="tag">
-											<span>new</span>
-										</div>
-										<div class="action-link">
-											<div class="action-link-left">
-												<a href="/addtocart?id=${i.productID}"
-													data-bs-target="#modalAddcart">Add to Cart</a>
-											</div>
-											<div class="action-link-right">
-												<a href="/shop/productdetails?id=${i.productID}"
-													data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-												<!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-												<!-- <a href="compare.html"><i class="icon-shuffle"></i></a> -->
-											</div>
-										</div>
-									</div>
-									<div class="content">
-										<div class="content-left">
-											<h6 class="title"><a
-													href="/shop/productdetails?id=${i.productID}">{{product.name}}</a>
+													routerLink="/product/{{product.id}}">{{product.name}}</a>
 											</h6>
 											<!-- <ul class="review-star">
 	                                                <li class="fill"><i class="ion-android-star"></i></li>
@@ -493,7 +217,7 @@
 		<div class="row">
 			<div class="col-xl-8 offset-xl-2">
 				<!-- Start Banner Single Item -->
-				<div class="banner-single-item banner-style-3 banner-animation img-responsive">
+				<div class="banner-single-item banner-style-3 banner-animation img-responsive" data-aos="fade-up"  data-aos-delay="0">
 					<div class="image">
 						<img class="img-fluid" src="/assets/static/images/banner/banner-style-3-img-1.jpg" alt="">
 					</div>

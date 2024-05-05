@@ -5,6 +5,7 @@ import { ShopFooterComponent } from './pages/shop-footer/shop-footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AuthService } from './services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
+import * as AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -44,5 +45,13 @@ export class AppComponent implements OnInit{
     }, 10000)
   }
 
+  ngAfterViewInit(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+      AOS.init({
+        once: true
+      }
+      )
+    })
+  }
 
 }

@@ -28,6 +28,8 @@ public class ProductDto {
 
 	private Long categoryId;
 	
+	private String categoryName;
+	
 	private MultipartFile img1;
 	
 	private MultipartFile img2;
