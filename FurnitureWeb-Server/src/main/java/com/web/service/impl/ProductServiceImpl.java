@@ -2,13 +2,16 @@ package com.web.service.impl;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.web.dto.ProductDto;
+import com.web.dto.ProductPagingReponse;
 import com.web.entity.Category;
 import com.web.entity.Product;
 import com.web.entity.ProductStatus;
@@ -46,19 +49,60 @@ public class ProductServiceImpl implements ProductService{
 			return new ResponseEntity<>("Add product failed. Error: "+e, HttpStatus.NOT_IMPLEMENTED);
 		}
 		
-		return new ResponseEntity<>(product.getDto(), HttpStatus.CREATED);
+		return new ResponseEntity<>(product, HttpStatus.CREATED);
 		
 	}
 	
 	public ResponseEntity<?> getAllProducts() {
 		List<Product> products = productRepository.findAll();
-		products.stream().map(Product::getDto).collect(Collectors.toList());
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
 	
-	public ResponseEntity<?> getAllProductsByName(String name) {
-		List<Product> products = productRepository.findAllByNameContaining(name);
-		products.stream().map(Product::getDto).collect(Collectors.toList());
+	public ResponseEntity<?> getNewsProducts() {
+		List<Product> products = productRepository.findTop8ByOrderByIdDesc();
 		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> getAllProductsAvailable(int index) {
+		Pageable pageable = PageRequest.of(index - 1, 6);	// page number starts with 0 but index in front-end starts with 1
+		Page<Product> products = productRepository.findByStatus(ProductStatus.AVAILABLE, pageable);
+		
+		ProductPagingReponse resp = new ProductPagingReponse();
+		resp.setProducts(products.getContent());
+		resp.setCurrentNumberOfElement(products.getNumberOfElements());
+		resp.setCurrentPage(index);
+		resp.setTotalElement(products.getTotalElements());
+		resp.setTotalPage(products.getTotalPages());
+		
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> getAllProductsByName(String name, int index) {
+		Pageable pageable = PageRequest.of(index - 1, 6);
+		Page<Product> products = productRepository.findAllByStatusAndNameContaining(ProductStatus.AVAILABLE, name, pageable);
+		
+		ProductPagingReponse resp = new ProductPagingReponse();
+		resp.setProducts(products.getContent());
+		resp.setCurrentNumberOfElement(products.getNumberOfElements());
+		resp.setCurrentPage(index);
+		resp.setTotalElement(products.getTotalElements());
+		resp.setTotalPage(products.getTotalPages());
+		
+		return new ResponseEntity<>(resp, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> getAllProductsByCategory(Long id, int index) {
+		Pageable pageable = PageRequest.of(index - 1, 6);
+		Category category = categoryRepository.findById(id).orElseThrow();
+		Page<Product> products = productRepository.findByCategory(category, pageable);
+		
+		ProductPagingReponse resp = new ProductPagingReponse();
+		resp.setProducts(products.getContent());
+		resp.setCurrentNumberOfElement(products.getNumberOfElements());
+		resp.setCurrentPage(index);
+		resp.setTotalElement(products.getTotalElements());
+		resp.setTotalPage(products.getTotalPages());
+		
+		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 }

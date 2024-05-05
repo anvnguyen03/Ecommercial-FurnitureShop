@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
-    this.productService.getAllProduct().subscribe({
+    this.productService.getNewestProducts().subscribe({
       next: (response: any) => {
         response.forEach((element: any) => {
           element.processedImg1 = 'data:image/jpeg;base64,' + element.img1

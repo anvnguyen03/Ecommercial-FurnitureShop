@@ -19,13 +19,23 @@ public class ProductController {
 
 	private final ProductService productService;
 	
-	@GetMapping("/getall")
-	public ResponseEntity<?> getAllProducts(){
-		return productService.getAllProducts();
+	@GetMapping("/getnewest")
+	public ResponseEntity<?> getNewestProducts(){
+		return productService.getNewsProducts();
 	}
 	
-	@GetMapping("/search/{name}")
-	public ResponseEntity<?> getAllProductsByName(@PathVariable String name){
-		return productService.getAllProductsByName(name);
+	@GetMapping("/getall/{index}")
+	public ResponseEntity<?> getAllProducts(@PathVariable int index){
+		return productService.getAllProductsAvailable(index);
+	}
+	
+	@GetMapping("/search/{name}/{index}")
+	public ResponseEntity<?> getAllProductsByName(@PathVariable String name, @PathVariable int index){
+		return productService.getAllProductsByName(name, index);
+	}
+	
+	@GetMapping("/category/{id}/{index}")
+	public ResponseEntity<?> getAllProductsByCategory(@PathVariable Long id, @PathVariable int index) {
+		return productService.getAllProductsByCategory(id, index);
 	}
 }

@@ -33,7 +33,7 @@
                         <div class="row">
                             <!-- Start Sort Wrapper Box -->
                             <div class="sort-box d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column"
-                                data-aos="fade-up" data-aos-delay="0" >
+                                data-aos="fade-up" data-aos-delay="0">
                                 <!-- Start Sort tab Button -->
                                 <div class="sort-tablist d-flex align-items-center">
                                     <ul class="tablist nav sort-tab-btn">
@@ -44,7 +44,7 @@
 
                                     <!-- Start Page Amount -->
                                     <div class="page-amount ml-2">
-                                        <span>Showing 1–9 of 21 results</span>
+                                        <span>Showing {{currentNumberOfElement}} of {{totalResult}} results</span>
                                     </div> <!-- End Page Amount -->
                                 </div> <!-- End Sort tab Button -->
 
@@ -54,19 +54,15 @@
                                     <form action="#">
                                         <fieldset (click)="toggleDropdown()">
                                             <div class="nice-select" [class.open]="isOpen">
-                                                <span class="current">Sort by newness</span>
+                                                <span *ngIf="!sortingType" class="current">Default sorting</span>
+                                                <span *ngIf="sortingType" class="current">{{sortingType}}</span>
                                                 <ul class="list">
-                                                    <li data-value="Sort by average rating" class="option">Sort by
-                                                        average rating</li>
-                                                    <li data-value="Sort by popularity" class="option">Sort by
-                                                        popularity</li>
-                                                    <li data-value="Sort by newness" class="option selected focus">Sort
-                                                        by newness</li>
-                                                    <li data-value="Sort by price: low to high" class="option">Sort by
-                                                        price: low to high</li>
-                                                    <li data-value="Sort by price: high to low" class="option">Sort by
-                                                        price: high to low</li>
-                                                    <li data-value="Product Name: Z" class="option">Product Name: Z</li>
+                                                    <li (click)="sortByNewness()" class="option" [ngClass]="{'selected focus': sortingType == 'Sort by newness'}">
+                                                        Sort by newness</li>
+                                                    <li (click)="sortByPriceAscending()" class="option" [ngClass]="{'selected focus': sortingType == 'Price: low to high'}">
+                                                        Price: low to high</li>
+                                                    <li (click)="sortByNewnessDescending()" class="option" [ngClass]="{'selected focus': sortingType == 'Price: high to low'}">
+                                                        Price: high to low</li>
                                                 </ul>
                                             </div>
                                         </fieldset>
@@ -134,25 +130,29 @@
                                                 <!-- End Product Default Single Item -->
                                             </div>
                                         </div>
-                                    </div> <!-- End Grid View Product -->
+                                    </div> 
+                                    <!-- End Grid View Product -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> <!-- End Tab Wrapper -->
+                </div> 
+                <!-- End Tab Wrapper -->
 
                 <!-- Start Pagination -->
                 <div class="page-pagination text-center" data-aos="fade-up" data-aos-delay="0">
                     <ul>
-                        <li><a class="active" href="#">1</a></li>   
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="ion-ios-skipforward"></i></a></li>
+                        <li *ngIf="currentPage > 1"><a (click)="backPage(currentPage)"><i class="ion-ios-skipbackward"></i></a></li>
+                        <li *ngFor="let page of count(totalPage)"><a class="" [class.active]="currentPage == page" (click)="paging(page)">{{page}}</a></li>
+                        <li *ngIf="currentPage < totalPage"><a (click)="nextPage(currentPage)" ><i class="ion-ios-skipforward"></i></a></li>
                     </ul>
-                </div> <!-- End Pagination -->
-            </div> <!-- End Shop Product Sorting Section  -->
+                </div>
+                <!-- End Pagination -->
+            </div> 
+            <!-- End Shop Product Sorting Section  -->
         </div>
     </div>
-</div> <!-- ...:::: End Shop Section:::... -->
+</div> 
+<!-- ...:::: End Shop Section:::... -->
 
 <app-shop-footer></app-shop-footer>

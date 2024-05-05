@@ -4,7 +4,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.web.dto.ProductDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -54,20 +53,4 @@ public class Product {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private Category category;
-	
-	public ProductDto getDto() {
-		ProductDto productDto = new ProductDto();
-		productDto.setId(id);
-		productDto.setName(name);
-		productDto.setDescription(description);
-		productDto.setPrice(price);
-		productDto.setStoke(stoke);
-		productDto.setStatus(status);
-		productDto.setByteImg1(img1);
-		productDto.setByteImg2(img2);
-		productDto.setByteImg3(img3);
-		productDto.setCategoryId(category.getId());
-		productDto.setCategoryName(category.getName());
-		return productDto;
-	}
 }

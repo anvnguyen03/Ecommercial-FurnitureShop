@@ -5,6 +5,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ProductService } from '../../../services/product.service';
 import { DataTablesModule } from 'angular-datatables';
 import { Config } from 'datatables.net';
+import { AdminService } from '../../../services/admin.service';
 
 @Component({
   selector: 'app-admin-product',
@@ -20,12 +21,12 @@ export class AdminProductComponent {
   dtOptions: Config = {}
 
   constructor(private authService: AuthService,
-    private productService: ProductService
+    private adminService: AdminService
   ) { }
 
   ngOnInit(): void {
 
-    this.productService.getAllProduct().subscribe({
+    this.adminService.getAllProducts().subscribe({
       next: (response: any) => {
         response.forEach((element: any) => {
           element.processedImg1 = 'data:image/jpeg;base64,' + element.img1

@@ -11,12 +11,20 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllProduct(): Observable<any> {
-    return this.httpClient.get(`${this.baseURL}/getall`)
+  getNewestProducts(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/getnewest`)
   }
 
-  getAllProductByName(name: any): Observable<any> {
-    return this.httpClient.get(`${this.baseURL}/search/${name}`)
+  getAllProductsAvailable(index: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/getall/${index}`)
+  }
+
+  getAllProductByName(name: any, index: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/search/${name}/${index}`)
+  }
+
+  getAllProductsByCategory(id: any, index: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/category/${id}/${index}`)
   }
 
 }

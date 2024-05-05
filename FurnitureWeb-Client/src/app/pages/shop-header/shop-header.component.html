@@ -57,8 +57,8 @@
                                             <ul class="mega-menu-inner">
 
                                                 <!-- Mega Menu Sub Link -->
-                                                <li *ngFor="let category of categories" class="mega-menu-item" style="flex-basis: 20%">
-                                                    <a href="/shop/findByCateParents?categoryparentsid=${i.cateParentsID}"
+                                                <li *ngFor="let category of categories" class="mega-menu-item" style="flex-basis: 33%">
+                                                    <a (click)="searchByCategory(category.id)"
                                                         class="mega-menu-item-title">{{category.name}}</a>
                                                     <!-- <ul class="mega-menu-sub">
                                                         <li><a

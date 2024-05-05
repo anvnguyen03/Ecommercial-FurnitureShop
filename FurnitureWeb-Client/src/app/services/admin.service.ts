@@ -26,6 +26,12 @@ export class AdminService {
     })
   }
 
+  getAllProducts(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/product`, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

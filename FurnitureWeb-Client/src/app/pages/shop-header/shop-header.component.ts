@@ -60,6 +60,12 @@ export class ShopHeaderComponent implements OnInit {
     })
   }
 
+  searchByCategory(id: any) {
+    this.router.navigateByUrl('/refreshing', { skipLocationChange: true }).then(() => {
+      this.router.navigate([`/shop/category=${id}`])
+    })
+  }
+
   getAllCategories() {
     this.cateService.getAllCategories().subscribe({
       next: (response) => {
