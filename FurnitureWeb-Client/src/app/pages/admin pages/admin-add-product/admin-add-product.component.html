@@ -88,9 +88,10 @@
                                 <h5 class="card-header">Add product form</h5>
                                 <div class="card-body">
 
-                                    <form id="formValidationExamples"
+                                    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()"
+                                        id="formValidationExamples"
                                         class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                                        novalidate="novalidate" action="addpro" method="post"
+                                        novalidate="novalidate"
                                         enctype="multipart/form-data">
 
                                         <!-- Account Details -->
@@ -104,7 +105,7 @@
                                         <div class="col-md-6 fv-plugins-icon-container">
                                             <label class="form-label" for="formValidationName">Product Name</label>
                                             <input type="text" id="formValidationName" class="form-control"
-                                                placeholder="working desk" name="productName">
+                                                placeholder="working desk" formControlName="name">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                             </div>
@@ -115,10 +116,8 @@
                                             <div class="input-group">
                                                 <label class="input-group-text"
                                                     for="inputGroupSelect01">Category</label>
-                                                <select class="form-select" id="inputGroupSelect01" name="cateID">
-                                                    <option selected="">Choose...</option>
-                                                            <option value="i.cateID">$i.cateName</option>
-                                                    
+                                                <select class="form-select" id="inputGroupSelect01" formControlName="categoryId">
+                                                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>         
                                                 </select>
                                             </div>
                                         </div>
@@ -128,7 +127,7 @@
                                             <div class="input-group">
                                                 <span class="input-group-text">$</span>
 
-                                                <input type="text" class="form-control" name="price"
+                                                <input type="text" class="form-control" formControlName="price"
                                                     aria-label="Dollar amount (with dot and two decimal places)">
                                             </div>
                                         </div>
@@ -136,7 +135,7 @@
                                         <div class="col-md-6 fv-plugins-icon-container">
                                             <label class="form-label" for="formValidationName">Stoke</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" name="stoke"
+                                                <input type="number" class="form-control" formControlName="stoke"
                                                     aria-label="Dollar amount (with dot and two decimal places)">
                                             </div>
                                         </div>
@@ -146,7 +145,7 @@
                                                 <label for="exampleFormControlTextarea1"
                                                     class="form-label">Description</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                                    name="description"></textarea>
+                                                    formControlName="description"></textarea>
                                             </div>
                                         </div>
 
@@ -158,39 +157,39 @@
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <div class="form-control">
-                                                <img id="previewImage1" src=""
+                                            <div *ngIf="selectedFile1" class="form-control">
+                                                <img id="previewImage1" [src]="imagePreview1"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
                                             <label for="formValidationFile" class="form-label">Product img1</label>
                                             <input class="form-control" type="file" id="formValidationFile1"
-                                                name="imgLink1" onchange="previewFile(1)">
+                                                name="imgLink1" (change)="onFileSelected($event, 1)">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <div class="form-control">
-                                                <img id="previewImage2" src=""
+                                            <div *ngIf="selectedFile2" class="form-control">
+                                                <img id="previewImage2" [src]="imagePreview2"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
                                             <label for="formValidationFile" class="form-label">Product img2</label>
                                             <input class="form-control" type="file" id="formValidationFile2"
-                                                name="imgLink2" onchange="previewFile(2)">
+                                                name="imgLink2" (change)="onFileSelected($event, 2)">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6 fv-plugins-icon-container">
-                                            <div class="form-control">
-                                                <img id="previewImage3" src=""
+                                            <div *ngIf="selectedFile3" class="form-control">
+                                                <img id="previewImage3" [src]="imagePreview3"
                                                     style="width: 100%; height: 100%; object-fit: cover">
                                             </div>
                                             <label for="formValidationFile" class="form-label">Product img3</label>
                                             <input class="form-control" type="file" id="formValidationFile3"
-                                                name="imgLink3" onchange="previewFile(3)">
+                                                name="imgLink3" (change)="onFileSelected($event, 3)">
                                             <div
                                                 class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                                             </div>
@@ -198,8 +197,8 @@
                                         
                                         <div class="col-12">
                                             <button type="submit" name="submitButton"
-                                                class="btn btn-primary">Submit</button>
-                                            <a style="display: contents;" id="discardLink"><button onclick="discardAndRedirect()" type="reset"
+                                                class="btn btn-primary">Add product</button>
+                                            <a routerLink="/admin/product" style="display: contents;" id="discardLink"><button type="reset"
                                                 name="resetButton" class="btn bg-label-danger">Discard</button></a>
                                         </div>
 

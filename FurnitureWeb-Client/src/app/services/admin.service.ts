@@ -7,8 +7,8 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AdminService {
-  
-  private baseURL = "http://localhost:8080/api/v1/admin"
+
+  private baseURL = 'http://localhost:8080/api/v1/admin'
 
   constructor(private httpClient: HttpClient,
     private authService: AuthService
@@ -20,7 +20,13 @@ export class AdminService {
     })
   }
 
+  addProduct(product: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseURL}/product`, product, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken())
+    return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }
 }

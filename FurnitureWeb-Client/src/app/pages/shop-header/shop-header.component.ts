@@ -45,7 +45,6 @@ export class ShopHeaderComponent implements OnInit {
     this.cateService.getAllCategories().subscribe({
       next: (response) => {
         this.categories = response
-        console.log(this.categories)
       }
     })
   }
