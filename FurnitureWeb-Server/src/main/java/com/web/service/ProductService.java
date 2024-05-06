@@ -13,4 +13,6 @@ public interface ProductService {
 	ResponseEntity<?> getAllProductsAvailable(int index);
 	ResponseEntity<?> getAllProductsByName(String name, int index);
 	ResponseEntity<?> getAllProductsByCategory(Long id, int index);
+	ResponseEntity<?> getProductById(Long id);
+	ResponseEntity<?> getRelatedProducts(Long id);
 }

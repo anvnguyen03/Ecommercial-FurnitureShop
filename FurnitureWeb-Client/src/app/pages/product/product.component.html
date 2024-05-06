@@ -1,7 +1,3 @@
-<link href="/assets/static/css/style.min.css" rel="stylesheet">
-<link href="/assets/static/css/vendor.min.css" rel="stylesheet">
-<link href="/assets/static/css/plugins.min.css" rel="stylesheet">
-
 <app-shop-header></app-shop-header>
 
 <!-- ...:::: Start Breadcrumb Section:::... -->
@@ -36,19 +32,13 @@
                     <div class="product-large-image product-large-image-horaizontal swiper-container">
                         <div class="swiper-wrapper">
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="" alt="">
+                                <img [src]="product.proccessedImg1" alt="">
                             </div>
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="" alt="">
+                                <img [src]="product.proccessedImg2" alt="">
                             </div>
                             <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="" alt="">
-                            </div>
-                            <div class="product-image-large-image swiper-slide zoom-image-hover img-responsive">
-                                <img src="" alt="">
+                                <img [src]="product.proccessedImg3" alt="">
                             </div>
                         </div>
                     </div>
@@ -57,19 +47,13 @@
                     <div class="product-image-thumb product-image-thumb-horizontal swiper-container pos-relative mt-5">
                         <div class="swiper-wrapper">
                             <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="" alt="">
+                                <img class="img-fluid" [src]="product.proccessedImg1" alt="">
                             </div>
                             <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="" alt="">
+                                <img class="img-fluid" [src]="product.proccessedImg2" alt="">
                             </div>
                             <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="" alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="" alt="">
-                            </div>
-                            <div class="product-image-thumb-single swiper-slide">
-                                <img class="img-fluid" src="" alt="">
+                                <img class="img-fluid" [src]="product.proccessedImg3" alt="">
                             </div>
                         </div>
                         <!-- Add Arrows -->
@@ -84,7 +68,7 @@
                     data-aos-delay="200">
                     <!-- Start  Product Details Text Area-->
                     <div class="product-details-text">
-                        <h4 class="title">$product.productName</h4>
+                        <h4 class="title">{{product.name}}</h4>
                         <div class="d-flex align-items-center">
                             <!-- <ul class="review-star">
                                 <li class="fill"><i class="ion-android-star"></i></li>
@@ -95,42 +79,47 @@
                             </ul> -->
                             <!-- <a href="#" class="customer-review ml-2">(customer review )</a> -->
                         </div>
-                        <div class="price"><span class="price">$
-                            </span></div>
-                        <p>$product.description</p>
+                        <div class="price"><span class="price">$ {{product.price | number}}
+                            </span>
+                        </div>
+
                     </div> <!-- End  Product Details Text Area-->
                     <!-- Start Product Variable Area -->
                     <div class="product-details-variable">
                         <h4 class="title">Available Options</h4>
                         <!-- Product Variable Single Item -->
-                        <div class="variable-single-item">
+                        <div *ngIf="product.stoke > 0" class="variable-single-item">
                             <div class="product-stock"> <span class="product-stock-in"><i
-                                        class="ion-checkmark-circled"></i></span> $product.stoke IN STOCK</div>
+                                        class="ion-checkmark-circled"></i></span> {{product.stoke}} IN STOCK</div>
                         </div>
-                        <div class="variable-single-item">
+                        <div *ngIf="product.stoke == 0" class="variable-single-item">
                             <div class="product-stock"> <span class="product-stock-in"><i
-                                        class="ion-close-circled"></i></span> $product.stoke IN STOCK</div>
+                                        class="ion-close-circled"></i></span> {{product.stoke}} IN STOCK</div>
                         </div>
                         <!-- Product Variable Single Item -->
-                        <div class="d-flex align-items-center ">
-                            <div class="variable-single-item ">
-                                <span>Quantity</span>
-                                <div class="product-variable-quantity">
-                                    <input id="quantityInput" min="1" max="${product.stoke}" value="1" type="number">
+                        <form [formGroup]="addToCartForm">
+                            <div class="d-flex align-items-center ">
+                                <div class="variable-single-item ">
+                                    <span>Quantity</span>
+                                    <div class="product-variable-quantity">
+                                        <input id="quantityInput" min="1" max="{{product.stoke}}" value="1"
+                                            type="number" formControlName="quantity">
+                                    </div>
                                 </div>
-                            </div>
 
-                                <div class="product-add-to-cart-btn">
-                                    <a href="#" onclick="" class="btn btn-block btn-lg
+                                <div *ngIf="product.stoke > 0" class="product-add-to-cart-btn">
+                                    <a (click)="addToCart()" class="btn btn-block btn-lg
                                     btn-black-default-hover">+ Add To Cart</a>
                                 </div>
-                                <div class="product-add-to-cart-btn">
-                                    <a href="#" class="btn btn-block btn-lg btn-black-default-hover">Out of stock</a>
+                                <div *ngIf="product.stoke == 0" class="product-add-to-cart-btn">
+                                    <a class="btn btn-block btn-lg btn-black-default-hover">Out of stock</a>
                                 </div>
-                        </div>
+                            </div>
+                        </form>
                         <!-- Start  Product Details Meta Area-->
                         <div class="product-details-meta mb-20">
-                            <a href="wishlist.html" class="icon-space-right"><i class="icon-heart"></i>Add to wishlist</a>
+                            <a href="wishlist.html" class="icon-space-right"><i class="icon-heart"></i>Add to
+                                wishlist</a>
                         </div>
                         <!-- End  Product Details Meta Area-->
                     </div>
@@ -140,7 +129,7 @@
                     <div class="product-details-catagory mb-2">
                         <span class="title">CATEGORY:</span>
                         <ul>
-                            <li><a href="">$product.category.cateName</a>
+                            <li><a routerLink="/shop/category={{product.categoryId}}">{{product.categoryName}}</a>
                             </li>
                         </ul>
                     </div> <!-- End  Product Details Catagories Area-->
@@ -170,10 +159,10 @@
 
                     <!-- Start Product Details Tab Button -->
                     <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
-                        <li><a class="nav-link active" data-bs-toggle="tab" href="#description">
+                        <li><a class="nav-link" [class.active]="descriptionTab" (click)="moveTab(1)">
                                 Description
                             </a></li>
-                        <li><a class="nav-link" data-bs-toggle="tab" href="#information">
+                        <li><a class="nav-link" [class.active]="commentTab" (click)="moveTab(2)">
                                 Information
                             </a></li>
                         <!-- <li><a class="nav-link" data-bs-toggle="tab" href="#review">
@@ -186,16 +175,16 @@
                     <div class="product-details-content-tab">
                         <div class="tab-content">
                             <!-- Start Product Details Tab Content Singel -->
-                            <div class="tab-pane active show" id="description">
+                            <div class="tab-pane active show" [class.active]="descriptionTab" id="description">
                                 <div class="single-tab-content-item">
-                                    <p>$product.description</p>
+                                    <p>{{product.description}}</p>
                                 </div>
                             </div>
                             <!-- End Product Details Tab Content Singel -->
                             <!-- Start Product Details Tab Content Singel -->
-                            <div class="tab-pane active show" id="information">
+                            <div class="tab-pane active show" [class.active]="commentTab" id="information">
                                 <div class="single-tab-content-item">
-                                    <p>$product.information</p>
+                                    <p>Comment</p>
                                 </div>
                             </div>
                             <!-- End Product Details Tab Content Singel -->
@@ -208,6 +197,7 @@
         </div>
     </div>
 </div> <!-- End Product Content Tab Section -->
+
 
 <!-- Start Product Default Slider Section -->
 <div class="product-default-slider-section section-top-gap-100 section-fluid">
@@ -236,46 +226,48 @@
                         <div class="swiper-container product-default-slider-4grid-1row">
                             <!-- Additional required wrapper -->
                             <div class="swiper-wrapper">
-                                    <!-- Start Product Default Single Item -->
-                                    <div class="product-default-single-item product-color--golden swiper-slide">
-                                        <div class="image-box">
-                                            <a href="" class="image-link">
-                                            <img src="" alt="">
-                                            <img src="" alt="">
-                                            </a>
-                                            <div class="action-link">
-                                                    <div class="action-link-left">
-                                                        <a href="" data-bs-target="#modalAddcart">Add to Cart</a>
-                                                    </div>
-                                                    <div class="action-link-left">
-                                                        <a href="#">Out of Stock</a>
-                                                    </div>
-                                                <div class="action-link-right">
-                                                    <a href="" data-bs-target="#modalQuickview"><i class="icon-magnifier"></i></a>
-                                                    <!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
-                                                </div>
+                                <!-- Start Product Default Single Item -->
+                                <div *ngFor="let i of relatedProducts"
+                                    class="product-default-single-item product-color--golden swiper-slide">
+                                    <div class="image-box">
+                                        <a (click)="navigate(i.id)" class="image-link">
+                                            <img [src]="i.proccessedImg1" alt="">
+                                            <img [src]="i.proccessedImg2" alt="">
+                                        </a>
+                                        <div class="action-link">
+                                            <div *ngIf="i.stoke > 0" class="action-link-left">
+                                                <a href="" data-bs-target="#modalAddcart">Add to Cart</a>
+                                            </div>
+                                            <div *ngIf="i.stoke == 0" class="action-link-left">
+                                                <a href="#">Out of Stock</a>
+                                            </div>
+                                            <div class="action-link-right">
+                                                <a (click)="navigate(i.id)" data-bs-target="#modalQuickview"><i
+                                                        class="icon-magnifier"></i></a>
+                                                <!-- <a href="wishlist.html"><i class="icon-heart"></i></a> -->
                                             </div>
                                         </div>
-                                        <div class="content">
-                                            <div class="content-left">
-                                                <h6 class="title"><a href="">$u.productName</a>
-                                                </h6>
-                                                <!-- <ul class="review-star">
+                                    </div>
+                                    <div class="content">
+                                        <div class="content-left">
+                                            <h6 class="title"><a (click)="navigate(i.id)">{{i.name}}</a>
+                                            </h6>
+                                            <!-- <ul class="review-star">
 	                                                <li class="fill"><i class="ion-android-star"></i></li>
 	                                                <li class="fill"><i class="ion-android-star"></i></li>
 	                                                <li class="fill"><i class="ion-android-star"></i></li>
 	                                                <li class="fill"><i class="ion-android-star"></i></li>
 	                                                <li class="empty"><i class="ion-android-star"></i></li>
 	                                            </ul> -->
-                                            </div>
-                                            <div class="content-right">
-                                                <span class="price">$
-                                                </span>
-                                            </div>
-
                                         </div>
+                                        <div class="content-right">
+                                            <span class="price">$ {{i.price | number}}
+                                            </span>
+                                        </div>
+
                                     </div>
-                                    <!-- End Product Default Single Item -->
+                                </div>
+                                <!-- End Product Default Single Item -->
                             </div>
                         </div>
                         <!-- If we need navigation buttons -->

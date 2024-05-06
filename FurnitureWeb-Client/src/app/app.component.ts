@@ -48,7 +48,9 @@ export class AppComponent implements OnInit{
   ngAfterViewInit(): void {
     document.addEventListener('DOMContentLoaded', () => {
       AOS.init({
-        once: true
+        duration: 1000, 
+        once: true, 
+        easing: 'ease'
       }
       )
     })

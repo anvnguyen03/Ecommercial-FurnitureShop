@@ -53,4 +53,12 @@ public class Product {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JsonIgnore
 	private Category category;
+	
+	public String getCategoryName() {
+		return category.getName();
+	}
+	
+	public Long getCategoryId() {
+		return category.getId();
+	}
 }

@@ -1,6 +1,7 @@
 package com.web.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +16,9 @@ import com.web.entity.ProductStatus;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
 	List<Product> findTop8ByOrderByIdDesc();
+	List<Product> findTop6ByCategory(Category category);
 	Page<Product> findAllByStatusAndNameContaining( ProductStatus status, String name, Pageable pageable);
 	Page<Product> findByStatus(ProductStatus status, Pageable pageable);
 	Page<Product> findByCategory(Category category,Pageable pageable);
+	Optional<Product> findById(Long id);
 }

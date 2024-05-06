@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
-import { ProductService } from '../../../services/product.service';
 import { DataTablesModule } from 'angular-datatables';
 import { Config } from 'datatables.net';
 import { AdminService } from '../../../services/admin.service';

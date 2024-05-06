@@ -105,4 +105,17 @@ public class ProductServiceImpl implements ProductService{
 		
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
+	
+	public ResponseEntity<?> getRelatedProducts(Long id) {
+		Category category = categoryRepository.findById(id).orElseThrow();
+		List<Product> products = productRepository.findTop6ByCategory(category);
+		System.out.println(products.size());
+		
+		return new ResponseEntity<>(products, HttpStatus.OK);
+	}
+	
+	public ResponseEntity<?> getProductById(Long id) {
+		Product product = productRepository.findById(id).orElseThrow();
+		return new ResponseEntity<>(product, HttpStatus.OK);
+	}
 }

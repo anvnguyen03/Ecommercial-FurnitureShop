@@ -27,4 +27,12 @@ export class ProductService {
     return this.httpClient.get(`${this.baseURL}/category/${id}/${index}`)
   }
 
+  getProductById(id: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/getone/${id}`)
+  }
+
+  getRelatedProductByCategory(id: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/related/${id}`)
+  }
+
 }

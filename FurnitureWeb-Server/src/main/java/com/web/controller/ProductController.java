@@ -38,4 +38,14 @@ public class ProductController {
 	public ResponseEntity<?> getAllProductsByCategory(@PathVariable Long id, @PathVariable int index) {
 		return productService.getAllProductsByCategory(id, index);
 	}
+	
+	@GetMapping("/getone/{id}")
+	public ResponseEntity<?> getProductById(@PathVariable Long id) {
+		return productService.getProductById(id);
+	}
+	
+	@GetMapping("/related/{categoryid}")
+	public ResponseEntity<?> get6ProductsByCategory(@PathVariable Long categoryid) {
+		return productService.getRelatedProducts(categoryid);
+	}
 }
