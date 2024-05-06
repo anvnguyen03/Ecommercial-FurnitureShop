@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import Swiper from 'swiper';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product',
@@ -19,7 +21,9 @@ export class ProductComponent implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) {}
 
   product: any = null
@@ -117,12 +121,35 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   }
 
-  addToCart() {
+  // hàm add khi thêm từ trong trang chi tiết sản phẩm
+  addToCart(productId: any) {
     var quantity = this.addToCartForm.get('quantity')?.value
     if (quantity > this.product.stoke) {
       quantity = this.product.stoke
     }
-    console.log(quantity)
+
+    this.userService.addToCart(productId, quantity).subscribe({
+      next: (resp) => {
+        this.router.navigate(['/cart'])
+        this.snackBar.open('Đã thêm sản phẩm vào giỏ.', 'Đóng', { duration: 3000 })
+      },
+      error: (err) => {
+        this.snackBar.open('Sản phẩm đã tồn tại trong giỏ hàng.', 'Đóng', { duration: 3000 })
+      }
+    })
+  }
+
+  // hàm add to cart khi ấn add trực tiếp từ thumbnail của sản phẩm
+  addToCartByDefault(productId: any) {
+    this.userService.addToCart(productId, 1).subscribe({
+      next: (resp) => {
+        this.router.navigate(['/cart'])
+        this.snackBar.open('Đã thêm sản phẩm vào giỏ.', 'Đóng', { duration: 3000 })
+      },
+      error: (err) => {
+        this.snackBar.open('Sản phẩm đã tồn tại trong giỏ hàng.', 'Đóng', { duration: 3000 })
+      }
+    })
   }
 
   descriptionTab: boolean = true

@@ -4,6 +4,9 @@ import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-shop-product',
@@ -16,7 +19,10 @@ export class ShopProductComponent implements OnInit {
 
   constructor(private router: Router,
     private productService: ProductService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private userService: UserService,
+    private snackBar: MatSnackBar
   ) { }
 
   isOpen: boolean = false;
@@ -177,6 +183,22 @@ export class ShopProductComponent implements OnInit {
 
   count(totalPage: any) {
     return Array.from({ length: totalPage }, (_, i) => i + 1) // (_, i) (value of element, index)
+  }
+
+  addToCart(productId: any) {
+    if (this.authService.getUser()) {
+      // add to cart from home, quantity = 1 by default
+      this.userService.addToCart(productId, 1).subscribe({
+        next: (resp) => {
+          this.snackBar.open('Đã thêm thành công sản phẩm vào giỏ hàng.', 'Đóng', { duration: 3000 })
+        },
+        error: (err) => {
+          this.snackBar.open('Sản phẩm đã tồn tại trong giỏ hàng.', 'Đóng', { duration: 3000})
+        }
+      })
+    } else {
+      this.snackBar.open('Vui lòng đăng nhập để thực hiện chức năng này.', 'Đóng', { duration: 5000 })
+    }
   }
 
 }

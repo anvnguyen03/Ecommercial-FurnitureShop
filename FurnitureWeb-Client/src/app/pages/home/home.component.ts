@@ -3,9 +3,12 @@ import Swiper from 'swiper';
 import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { AuthService } from '../../services/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
+import { authGuard } from '../../guards/auth.guard';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +22,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   products: any[] = []
 
   constructor(private authService: AuthService,
-    private productService: ProductService
+    private productService: ProductService,
+    private userService: UserService,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +43,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
+  }
+
+  addToCart(productId: any) {
+    if (this.authService.getUser()) {
+      // add to cart from home, quantity = 1 by default
+      this.userService.addToCart(productId, 1).subscribe({
+        next: (resp) => {
+          this.snackBar.open('Đã thêm thành công sản phẩm vào giỏ hàng.', 'Đóng', { duration: 3000 })
+        },
+        error: (err) => {
+          this.snackBar.open('Sản phẩm đã tồn tại trong giỏ hàng.', 'Đóng', { duration: 3000})
+        }
+      })
+    } else {
+      this.snackBar.open('Vui lòng đăng nhập để thực hiện chức năng này.', 'Đóng', { duration: 5000 })
+    }
   }
 
   heroSlider() {

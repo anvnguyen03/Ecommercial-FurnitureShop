@@ -1,0 +1,149 @@
+<app-shop-header></app-shop-header>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title">Cart</h3>
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/shop">Shop</a></li>
+                                <li class="active" aria-current="page">Cart</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Cart Section:::... -->
+<div *ngIf="cartItems.length > 0; else emptyCart" class="cart-section">
+    <!-- Start Cart Table -->
+    <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="table_page table-responsive">
+                            <table>
+                                <!-- Start Cart Table Head -->
+                                <thead>
+                                    <tr>
+                                        <th class="product_update">Update</th>
+                                        <th class="product_thumb">Image</th>
+                                        <th class="product_name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product_quantity">Quantity</th>
+                                        <th class="product_total">Total</th>
+                                        <th class="product_remove">Delete</th>
+                                    </tr>
+                                </thead> <!-- End Cart Table Head -->
+                                <tbody>
+
+                                    <!-- Start Cart Single Item-->
+                                    <tr *ngFor="let item of cartItems">
+                                        <td class="product_update"><a href="" class="toggle-update"><i
+                                            class="fa fa-refresh"></i></a></td>
+                                        <td class="product_thumb"><a><img [src]="item.processedImg" alt=""></a>
+                                        </td>
+                                        <td class="product_name"><a>{{item.productName}}</a>
+                                        </td>
+                                        <td class="product-price"><span class="price">{{item.price | currency}}
+                                            </span></td>
+                                        <td class="product_quantity"><label>Quantity</label> <input disabled
+                                                id="quantityInput$i.cartItemsID" min="1" max="100"
+                                                value="{{item.quantity}}" type="number"></td>
+                                        <td class="product_total"><span class="price">{{item.price * item.quantity | currency}}
+                                            </span></td>
+                                        <td class="product_remove"><a><i class="fa fa-trash-o"></i></a></td>
+                                    </tr>
+                                    <!-- End Cart Single Item-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart_submit">
+                            <a routerLink="/shop"><button class="btn btn-md btn-golden">Continue
+                                    shopping</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Cart Table -->
+
+    <!-- Start Coupon Start -->
+    <div class="coupon_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code left" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Coupon</h3>
+                        <div class="coupon_inner">
+                            <p>Cửa hàng hiện chưa có mã giảm giá nào!!!!.</p>
+                            <input class="mb-2" placeholder="Hãy chờ thêm nhé" type="text" readonly="readonly">
+                            <button type="submit" class="btn btn-md btn-golden">Apply coupon</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code right" data-aos="fade-up" data-aos-delay="400">
+                        <h3>Cart Totals</h3>
+                        <div class="coupon_inner">
+                            <div class="cart_subtotal">
+                                <p>Amount</p>
+                                <p class="cart_amount">{{order.amount | currency}}
+                                </p>
+                            </div>
+                            <div class="cart_subtotal ">
+                                <p>Shipping</p>
+                                <p class="cart_amount"><span>Flat Rate:</span> $1000.00</p>
+                            </div>
+                            <a href="#">Calculate shipping</a>
+
+                            <div class="cart_subtotal">
+                                <p>Total amount</p>
+                                <p class="cart_amount">{{order.totalAmount | currency}}
+                                </p>
+                            </div>
+                            <div class="checkout_btn">
+                                <a href="" class="btn btn-md btn-golden">Place Order</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Coupon Start -->
+</div>
+<!-- ...:::: End Cart Section:::... -->
+
+<!-- ...:::: Start Empty Cart Section:::... -->
+<ng-template #emptyCart>
+    <div class="empty-cart-section section-fluid">
+        <div class="emptycart-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10 offset-md-1 col-xl-6 offset-xl-3">
+                        <div class="emptycart-content text-center">
+                            <div class="image">
+                                <img class="img-fluid" src="/assets/static/images/empty-cart.png" alt="">
+                            </div>
+                            <h4 class="title">Your Cart is Empty</h4>
+                            <h6 class="sub-title">Sorry Mate... No item Found inside your cart!</h6>
+                            <a routerLink="/shop" class="btn btn-lg btn-golden">Continue Shopping</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ...:::: End Emptu Cart Section:::... -->
+</ng-template>
+
+<app-shop-footer></app-shop-footer>

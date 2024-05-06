@@ -18,9 +18,12 @@ import com.web.dto.SignInRequest;
 import com.web.dto.SignUpRequest;
 import com.web.dto.UserResponse;
 import com.web.dto.ValidateTokenRequest;
+import com.web.entity.Order;
+import com.web.entity.OrderStatus;
 import com.web.entity.Role;
 import com.web.entity.Status;
 import com.web.entity.User;
+import com.web.repository.OrderRepository;
 import com.web.repository.UserRepository;
 import com.web.service.AuthenticationService;
 import com.web.service.JWTService;
@@ -33,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 public class AuthenticationServiceImpl implements AuthenticationService{
 
 	private final UserRepository userRepository;
+	private final OrderRepository orderRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final AuthenticationManager authenticationManager;
 	private final JWTService jwtService;
@@ -53,8 +57,16 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			user.setRole(Role.CUSTOMER);
 			user.setStatus(Status.ACTIVE);
 			user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-
-			userRepository.save(user);
+			User createdUser = userRepository.save(user);
+			
+			Order order = new Order();
+			order.setAmount(0L);
+			order.setTotalAmount(0L);
+			order.setDiscount(0L);
+			order.setUser(createdUser);
+			order.setOrderStatus(OrderStatus.PENDING);
+			orderRepository.save(order);
+			
 			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
 	}

@@ -16,9 +16,11 @@ export const loggedInGuard: CanActivateFn = (
   return authService.validateToken(token).pipe(
     map(response => {
       if (response == false) {
-        return protectedRoute.includes(state.url) ? true : router.createUrlTree(['/home'])
+        // nếu chưa đăng nhập mà truy cập protectedRoute thì cho phép, các route còn lại điều hướng về login
+        return protectedRoute.includes(state.url) ? true : router.createUrlTree(['/login'])
       } else {
-        return router.createUrlTree(['/home'])
+        // nếu đã đăng nhập mà truy cập protectedRoute thì điều hướng về /home, các route còn lại cho phép
+        return protectedRoute.includes(state.url) ? router.createUrlTree(['/home']) : true
       }
     })
   )
