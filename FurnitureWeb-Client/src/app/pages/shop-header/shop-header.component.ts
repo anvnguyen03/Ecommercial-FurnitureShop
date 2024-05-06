@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../services/category.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-shop-header',
@@ -19,6 +20,7 @@ export class ShopHeaderComponent implements OnInit {
   isLoggedIn: boolean = false
   isAdmin: boolean = false
   categories: any[] = []
+  itemCount = 0
 
   searchForm!: FormGroup
 
@@ -28,6 +30,7 @@ export class ShopHeaderComponent implements OnInit {
     private authService: AuthService,
     private cateService: CategoryService,
     private productService: ProductService,
+    private userService: UserService,
     private fb: FormBuilder) { }
 
   ngOnInit(): void {
@@ -45,9 +48,18 @@ export class ShopHeaderComponent implements OnInit {
     })
 
     this.getAllCategories()
+    this.getCart()
 
     this.offCanvasFunctionCart()
     this.offSearchModalFunction()
+  }
+
+  getCart() {
+    this.userService.getCartByUserId().subscribe({
+      next: (resp) => {
+        this.itemCount = resp.cartItems.length
+      }
+    })
   }
 
   search() {

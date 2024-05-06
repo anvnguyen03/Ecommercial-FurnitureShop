@@ -49,7 +49,7 @@
                                     <!-- Start Cart Single Item-->
                                     <tr *ngFor="let item of cartItems">
                                         <td class="product_update"><a href="" class="toggle-update"><i
-                                            class="fa fa-refresh"></i></a></td>
+                                                    class="fa fa-refresh"></i></a></td>
                                         <td class="product_thumb"><a><img [src]="item.processedImg" alt=""></a>
                                         </td>
                                         <td class="product_name"><a>{{item.productName}}</a>
@@ -59,7 +59,8 @@
                                         <td class="product_quantity"><label>Quantity</label> <input disabled
                                                 id="quantityInput$i.cartItemsID" min="1" max="100"
                                                 value="{{item.quantity}}" type="number"></td>
-                                        <td class="product_total"><span class="price">{{item.price * item.quantity | currency}}
+                                        <td class="product_total"><span class="price">{{item.price * item.quantity |
+                                                currency}}
                                             </span></td>
                                         <td class="product_remove"><a><i class="fa fa-trash-o"></i></a></td>
                                     </tr>
@@ -84,11 +85,18 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="coupon_code left" data-aos="fade-up" data-aos-delay="200">
                         <h3>Coupon</h3>
-                        <div class="coupon_inner">
-                            <p>Cửa hàng hiện chưa có mã giảm giá nào!!!!.</p>
-                            <input class="mb-2" placeholder="Hãy chờ thêm nhé" type="text" readonly="readonly">
-                            <button type="submit" class="btn btn-md btn-golden">Apply coupon</button>
-                        </div>
+                        <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()">
+                            <div *ngIf="!order.couponName; else couponApplied" class="coupon_inner">
+                                <p>Nhập mã giảm giá để nhận ưu đãi!</p>
+                                <input class="mb-2" placeholder="Code" type="text" formControlName="code">
+                                <button type="submit" class="btn btn-md btn-golden">Apply coupon</button>
+                            </div>
+                        </form>
+                        <ng-template #couponApplied>
+                            <div class="coupon_inner">
+                                <h2>Đã áp dụng mã giảm giá: {{order.couponName}}</h2>
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -101,10 +109,10 @@
                                 </p>
                             </div>
                             <div class="cart_subtotal ">
-                                <p>Shipping</p>
-                                <p class="cart_amount"><span>Flat Rate:</span> $1000.00</p>
+                                <p>Discount</p>
+                                <p class="cart_amount"><span></span>- {{order.discount | currency}}</p>
                             </div>
-                            <a href="#">Calculate shipping</a>
+                            <a></a>
 
                             <div class="cart_subtotal">
                                 <p>Total amount</p>

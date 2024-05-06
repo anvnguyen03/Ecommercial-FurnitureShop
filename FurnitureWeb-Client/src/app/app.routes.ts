@@ -11,6 +11,7 @@ import { AdminRevenueComponent } from './pages/admin pages/admin-revenue/admin-r
 import { AdminProductComponent } from './pages/admin pages/admin-product/admin-product.component';
 import { AdminAddProductComponent } from './pages/admin pages/admin-add-product/admin-add-product.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { AdminCouponComponent } from './pages/admin pages/admin-coupon/admin-coupon.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {path: "admin/revenue", component: AdminRevenueComponent, canActivate: [authGuard]},
     {path: "admin/product", component: AdminProductComponent, canActivate: [authGuard]},
     {path: "admin/addproduct", component: AdminAddProductComponent, canActivate: [authGuard]},
+    {path: "admin/coupon", component: AdminCouponComponent, canActivate: [authGuard]},
     {path: "cart", component: CartComponent, canActivate: [authGuard]},
     {path: "refreshing", redirectTo: "home"},
     {path: "", redirectTo: "home", pathMatch: "full"}

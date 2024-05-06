@@ -31,4 +31,9 @@ public class CartController {
 	public ResponseEntity<?> getCartByUserId(@PathVariable Long userId) {
 		return cartService.getCartByUserId(userId);
 	}
+	
+	@GetMapping("/coupon/{userId}/{code}")
+	public ResponseEntity<?> applyCoupon(@PathVariable Long userId, @PathVariable String code) {
+		return cartService.applyCoupon(userId, code);
+	}
 }

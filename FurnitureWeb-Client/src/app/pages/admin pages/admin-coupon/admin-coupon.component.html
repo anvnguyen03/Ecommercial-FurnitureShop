@@ -70,7 +70,7 @@
                             <div data-i18n="Email">Tin nhắn</div>
                         </a>
                     </li>
-                    
+
                     <li class="menu-item">
                         <a routerLink="/admin/coupon" class="menu-link">
                             <i class="menu-icon tf-icons bx bxs-coupon"></i>
@@ -159,61 +159,37 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Products</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Coupon</h4>
                         <!-- Hoverable Table rows -->
                         <div class="card">
                             <div>
-                                <h5 class="card-header">Product</h5>
-                                <a routerLink="/admin/addproduct" class="a-for-addproductbtn"><button type="button"
+                                <h5 class="card-header">Coupon</h5>
+                                <a (click)="toggleAddCoupon()" class="a-for-addproductbtn"><button type="button"
                                         class="btn btn-primary my-btn-custom"><i class="bx bx-plus me-0 me-sm-1"></i>Add
-                                        Products</button></a>
+                                        Coupon</button></a>
                             </div>
                             <div class="table-responsive text-nowrap">
-                                <table datatable="ng" *ngIf="products.length > 0" [dtOptions]="dtOptions" class="row-border hover" style="width:100%">
+                                <table datatable="ng" *ngIf="coupons.length > 0" [dtOptions]="dtOptions" class="row-border hover"
+                                    style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Product ID</th>
-                                            <th>Product Name</th>
-                                            <th>Price</th>
-                                            <th>Images</th>
-                                            <th>Stoke</th>
-                                            <th>Status</th>
+                                            <th>ID</th>
+                                            <th>Coupon Name</th>
+                                            <th>Code</th>
+                                            <th>Discount</th>
+                                            <th>Expiration date</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let product of products">
+                                        <tr *ngFor="let coupon of coupons">
                                             <td>
-                                                <span class="fw-medium">{{product.id}}</span>
+                                                <span class="fw-medium">{{coupon.id}}</span>
                                             </td>
-                                            <td>{{product.name}}</td>
-                                            <td>
-                                                <span>
-                                                    {{product.price}} $
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <ul
-                                                    class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                        data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                        <img [src]="product.processedImg1" alt="Avatar" class="rounded-circle" />
-                                                    </li>
-                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                        data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                        <img [src]="product.processedImg2" alt="Avatar" class="rounded-circle" />
-                                                    </li>
-                                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                        data-bs-placement="top" class="avatar avatar-xs pull-up">
-                                                        <img [src]="product.processedImg3" alt="Avatar" class="rounded-circle" />
-                                                    </li>
-                                                </ul>
-                                            </td>
-                                            <td>{{product.stoke}}</td>
-                                            <td>
-                                                <span *ngIf="product.status == 'AVAILABLE'" class="badge bg-success me-1">Available</span>
-                                                <span *ngIf="product.status == 'DELETED'" class="badge bg-dark me-1">Deleted</span>
-                                            </td>
+                                            <td>{{coupon.name}}</td>
+                                            <td>{{coupon.code}}</td>
+                                            <td>{{coupon.discount}}</td>
+                                            <td>{{coupon.expirationDate | date}}</td>
                                             <td>
                                                 <div class="dropdown">
                                                     <ul
@@ -232,13 +208,6 @@
                                                                 </button>
                                                             </a>
                                                         </li>
-                                                        <li>
-                                                            <a class="a-for-btn">
-                                                                <button type="button" class="btn p-0 hide-arrow">
-                                                                    <i class="bx bx-info-circle me-1"></i>
-                                                                </button>
-                                                            </a>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -249,6 +218,54 @@
                             </div>
                         </div>
                         <!--/ Hoverable Table rows -->
+
+                        <!-- Offcanvas to add new coupon -->
+                        <div class="offcanvas offcanvas-end" [class.show]="isOpenAddCoupon" tabindex="-1" id="offcanvasEcommerceCategoryList"
+                            aria-labelledby="offcanvasEcommerceCategoryListLabel">
+                            <!-- Offcanvas Header -->
+                            <div class="offcanvas-header py-4">
+                                <h5 id="offcanvasEcommerceCategoryListLabel" class="offcanvas-title">Add Coupon</h5>
+                                <button (click)="toggleAddCoupon()" type="button" class="btn-close bg-label-secondary text-reset"
+                                    data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <!-- Offcanvas Body -->
+                            <div class="offcanvas-body border-top">
+                                <form class="pt-0" [formGroup]="addCouponForm" (ngSubmit)="addCoupon()" onsubmit="return true">
+                                  
+                                    <div class="mb-3">
+                                        <label class="form-label">Coupon name</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Name" formControlName="name">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Code</label>
+                                        <input type="text" class="form-control"
+                                            placeholder="Code" formControlName="code">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Discount %</label>
+                                        <input type="number" class="form-control" min="1" max="100"
+                                            placeholder="Discount" formControlName="discount">
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Expiration date</label>
+                                        <input type="date" class="form-control" formControlName="expirationDate">
+                                    </div>
+                                    <!-- Submit and reset -->
+                                    <div class="mb-3">
+                                        <button type="submit"
+                                            class="btn btn-primary me-sm-3 me-1 data-submit">Add</button>
+                                        <button (click)="toggleAddCoupon()" type="reset" class="btn bg-label-danger"
+                                            data-bs-dismiss="offcanvas">Discard</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End Offcanvas -->
+                        <div *ngIf="isOpenAddCoupon" class="offcanvas-backdrop fade show"></div>
                     </div>
                     <!-- / Content -->
 

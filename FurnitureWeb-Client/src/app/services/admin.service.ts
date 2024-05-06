@@ -32,6 +32,18 @@ export class AdminService {
     })
   }
 
+  addCoupon(coupon: any): Observable<any> {
+    return this.httpClient.post<any>(`${this.baseURL}/coupon`, coupon, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
+  getAllCoupons(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/coupon`, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

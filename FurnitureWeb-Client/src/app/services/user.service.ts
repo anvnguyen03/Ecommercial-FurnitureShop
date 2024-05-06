@@ -41,6 +41,17 @@ export class UserService {
 
   }
 
+  applyCoupon(code: any): Observable<any> {
+
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+    
+    return this.httpClient.get(`${this.baseURL}/coupon/${userId}/${code}`, {
+      headers: this.addAuthorizationHeader()
+    })
+
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

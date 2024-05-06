@@ -1,5 +1,6 @@
 package com.web.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,11 +13,13 @@ import com.web.dto.AddProductInCartDto;
 import com.web.dto.CartItemsDto;
 import com.web.dto.OrderDto;
 import com.web.entity.CartItems;
+import com.web.entity.Coupon;
 import com.web.entity.Order;
 import com.web.entity.OrderStatus;
 import com.web.entity.Product;
 import com.web.entity.User;
 import com.web.repository.CartItemsRepository;
+import com.web.repository.CouponRepository;
 import com.web.repository.OrderRepository;
 import com.web.repository.ProductRepository;
 import com.web.repository.UserRepository;
@@ -32,6 +35,7 @@ public class CartServiceImpl implements CartService{
 	private final OrderRepository orderRepository;
 	private final CartItemsRepository cartItemsRepository;
 	private final ProductRepository productRepository;
+	private final CouponRepository couponRepository;
 	
 	public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto) {
 		Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.PENDING);
@@ -78,8 +82,41 @@ public class CartServiceImpl implements CartService{
 		orderDto.setDiscount(activeOrder.getDiscount());
 		orderDto.setTotalAmount(activeOrder.getTotalAmount());
 		orderDto.setCartItems(cartItemsDtos);
+		if (activeOrder.getCoupon() != null) {
+			orderDto.setCouponName(activeOrder.getCoupon().getName());
+		}
 		
 		return new ResponseEntity<>(orderDto, HttpStatus.OK);
 	}
 	
+	public ResponseEntity<?> applyCoupon(Long userId, String code) {
+		Order activeOrder = orderRepository.findByUserIdAndOrderStatus(userId, OrderStatus.PENDING);
+		Optional<Coupon> coupon = couponRepository.findByCode(code);
+		
+		if (coupon.isPresent()) {
+			if (isCouponExpired(coupon.get())) {
+				return new ResponseEntity<>(null, HttpStatus.LOCKED);
+			} else {
+				double discountAmount = ((coupon.get().getDiscount() / 100.0) * activeOrder.getAmount());
+				double totalAmount = activeOrder.getTotalAmount() - discountAmount;
+				
+				activeOrder.setTotalAmount((long)totalAmount);
+				activeOrder.setDiscount((long)discountAmount);
+				activeOrder.setCoupon(coupon.get());
+				
+				orderRepository.save(activeOrder);
+				return new ResponseEntity<>(activeOrder.getDto(), HttpStatus.OK);
+			}
+		} else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	
+	private boolean isCouponExpired(Coupon coupon) {
+		Date currentDate = new Date();
+		Date expirationDate = coupon.getExpirationDate();
+		
+		return currentDate.after(expirationDate);
+	}
 }

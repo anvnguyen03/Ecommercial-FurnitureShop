@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.web.dto.OrderDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -46,7 +48,27 @@ public class Order {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "coupon_id")
+	private Coupon coupon;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<CartItems> cartItems;
+	
+	public  OrderDto getDto() {
+		OrderDto orderDto = new OrderDto();
+		orderDto.setId(id);
+		orderDto.setDescription(Description);
+		orderDto.setDate(date);
+		orderDto.setAmount(amount);
+		orderDto.setAddress(address);
+		orderDto.setTrackingId(trackingId);
+		orderDto.setOrderStatus(orderStatus);
+		orderDto.setUserName(user.getFullname());
+		if (coupon != null) {
+			orderDto.setCouponName(coupon.getName());
+		}
+		return orderDto;
+	}
 	
 }

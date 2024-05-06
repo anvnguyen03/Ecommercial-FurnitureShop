@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { ShopHeaderComponent } from '../shop-header/shop-header.component';
 import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { UserService } from '../../services/user.service';
@@ -17,18 +17,40 @@ import { MatDialog } from '@angular/material/dialog'
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit{
+export class CartComponent implements OnInit {
 
   constructor(private userService: UserService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private router: Router,
+  ) { }
 
   cartItems: any[] = []
   order: any
+  couponForm!: FormGroup
 
   ngOnInit(): void {
     this.getCart()
+
+    this.couponForm = new FormGroup({
+      code: new FormControl('', [Validators.required])
+    })
+  }
+
+  applyCoupon() {
+    const code = this.couponForm?.get('code')?.value
+    this.userService.applyCoupon(code).subscribe({
+      next: (resp) => {
+        this.order = resp
+        this.snackBar.open('Áp dụng mã giảm giá thành công!', 'Đóng', { duration: 3000 })
+        this.router.navigateByUrl('/refreshing', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/cart'])
+        })
+      },
+      error: (err) => {
+        this.snackBar.open('Mã không hợp lệ, vui lòng nhập mã khác', 'Đóng', { duration: 3000 })
+      }
+    })
   }
 
   getCart() {
@@ -40,7 +62,6 @@ export class CartComponent implements OnInit{
           element.processedImg = 'data:image/jpeg;base64,' + element.img
         });
         this.cartItems = resp.cartItems
-        console.log(resp)
       }
     })
   }
