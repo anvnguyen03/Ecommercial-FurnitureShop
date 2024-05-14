@@ -43,9 +43,4 @@ export class AdminProductComponent {
 
   }
 
-  isOpen: boolean = false
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
 }

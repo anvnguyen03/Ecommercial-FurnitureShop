@@ -44,6 +44,12 @@ export class AdminService {
     })
   }
 
+  getAllPlacedOrders(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/placed-order`, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

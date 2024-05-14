@@ -109,10 +109,4 @@ export class AdminAddProductComponent implements OnInit {
       }
     }
   }
-
-  isOpen: boolean = false
-
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
 }

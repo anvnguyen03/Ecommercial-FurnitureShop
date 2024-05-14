@@ -3,6 +3,7 @@ package com.web.service.impl;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.web.dto.AddProductInCartDto;
 import com.web.dto.CartItemsDto;
 import com.web.dto.OrderDto;
+import com.web.dto.PlaceOrderDto;
 import com.web.entity.CartItems;
 import com.web.entity.Coupon;
 import com.web.entity.Order;
@@ -148,5 +150,30 @@ public class CartServiceImpl implements CartService{
 		activeOrder.updateOrderAmount();
 		orderRepository.save(activeOrder);
 		return new ResponseEntity<>(null, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<?> placeOrder(PlaceOrderDto placeOrderDto) {
+		Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.PENDING);
+		Optional<User> existedUser = userRepository.findById(placeOrderDto.getUserId());
+		
+		if (existedUser.isPresent()) {
+			activeOrder.setDescription(placeOrderDto.getDescription());
+			activeOrder.setAddress(placeOrderDto.getAddress());
+			activeOrder.setDate(new Date());
+			activeOrder.setOrderStatus(OrderStatus.PLACED);
+			activeOrder.setTrackingId(UUID.randomUUID());
+			orderRepository.save(activeOrder);
+			
+			Order order = new Order();
+			order.setAmount(0L);
+			order.setTotalAmount(0L);
+			order.setDiscount(0L);
+			order.setUser(existedUser.get());
+			order.setOrderStatus(OrderStatus.PENDING);
+			orderRepository.save(order);
+			return new ResponseEntity<>(activeOrder.getDto(), HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 	}
 }

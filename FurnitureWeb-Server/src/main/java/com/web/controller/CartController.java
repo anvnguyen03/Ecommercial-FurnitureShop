@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.web.dto.AddProductInCartDto;
 import com.web.dto.CartItemsDto;
+import com.web.dto.PlaceOrderDto;
 import com.web.service.CartService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,5 +47,11 @@ public class CartController {
 	@PostMapping("/cart/delete")
 	public ResponseEntity<?> deleteCartItem(@RequestBody CartItemsDto cartItemDto) {
 		return cartService.deleteCartItem(cartItemDto);
+	}
+	
+	@PostMapping("/cart/place-order")
+	public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
+		
+		return cartService.placeOrder(placeOrderDto);
 	}
 }

@@ -7,6 +7,7 @@ import { ShopFooterComponent } from '../shop-footer/shop-footer.component';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog'
+import { PlaceOrderComponent } from './place-order/place-order.component';
 
 @Component({
   selector: 'app-cart',
@@ -86,6 +87,10 @@ export class CartComponent implements OnInit {
         this.getCart()
       }
     })
+  }
+
+  openPlaceOrderForm() {
+    this.dialog.open(PlaceOrderComponent)
   }
 
 }

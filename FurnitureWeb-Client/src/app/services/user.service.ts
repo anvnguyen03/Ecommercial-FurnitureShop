@@ -79,6 +79,17 @@ export class UserService {
     })
   }
 
+  placeOrder(placeOrderDto: any): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+
+    placeOrderDto.userId = userId
+    console.log(placeOrderDto)
+    return this.httpClient.post(`${this.baseURL}/cart/place-order`, placeOrderDto, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

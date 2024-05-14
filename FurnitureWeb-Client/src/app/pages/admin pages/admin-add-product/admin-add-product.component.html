@@ -1,243 +1,149 @@
-<link href="/assets/static/css/core.css" rel="stylesheet">
-<link href="/assets/static/css/theme-default.css" rel="stylesheet">
-<link href="/assets/static/css/demo.css" rel="stylesheet">
-<link href="/assets/static/css/boxicons.css" rel="stylesheet">
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Products - Add</h4>
+    <!-- Hoverable Table rows -->
 
-<body>
-    <!-- Layout wrapper -->
-    <div class="layout-wrapper layout-content-navbar">
-        <div class="layout-container">
-            <!-- Menu -->
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-                <div class="app-brand demo">
-                    <a routerLink="/home" class="app-brand-link">
-                        <img src="/assets/static/images/logo/logo_red.png">
-                    </a>
+    <div class="row">
+        <!-- FormValidation -->
+        <div class="col-12">
+            <div class="card">
+                <h5 class="card-header">Add product form</h5>
+                <div class="card-body">
 
-                    <a href="javascript:void(0);"
-                        class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-                    </a>
-                </div>
+                    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()"
+                        id="formValidationExamples"
+                        class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
+                        novalidate="novalidate"
+                        enctype="multipart/form-data">
 
-                <div class="menu-inner-shadow"></div>
+                        <!-- Account Details -->
 
-                <ul class="menu-inner py-1">
-                    <!-- Dashboards -->
-                    <li class="menu-item active" [class.open]="isOpen">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle" (click)="toggleDropdown()">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Dashboards">Dashboards</div>
-                            <!-- <div class="badge bg-danger rounded-pill ms-auto">5</div> -->
-                        </a>
-                        <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a routerLink="/admin/category" class="menu-link">
-                                    <div data-i18n="CRM">Category</div>
-                                    <!-- <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div> -->
-                                </a>
-                            </li>
-                            <li class="menu-item active">
-                                <a routerLink="/admin/product" class="menu-link">
-                                    <div data-i18n="Analytics">Product</div>
-                                </a>
-                            </li>
-                            <li class="menu-item">
-                                <a routerLink="/admin/user" class="menu-link">
-                                    <div data-i18n="eCommerce">User</div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-item">
-                        <a routerLink="/admin/revenue" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-bar-chart-alt-2"></i>
-                            <div data-i18n="Email">Quản lí doanh thu</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a routerLink="/admin/order" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-receipt"></i>
-                            <div data-i18n="Email">Quản lí đơn hàng</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a routerLink="/admin/message" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-message-rounded-detail"></i>
-                            <div data-i18n="Email">Tin nhắn</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item">
-                        <a routerLink="/admin/coupon" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-coupon"></i>
-                            <div data-i18n="Email">Coupon</div>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-            <!-- / Menu -->
-
-            <!-- Content wrapper -->
-            <div class="content-wrapper">
-                <!-- Content -->
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Products - Add</h4>
-                    <!-- Hoverable Table rows -->
-
-                    <div class="row">
-                        <!-- FormValidation -->
                         <div class="col-12">
-                            <div class="card">
-                                <h5 class="card-header">Add product form</h5>
-                                <div class="card-body">
-
-                                    <form [formGroup]="addProductForm" (ngSubmit)="addProduct()"
-                                        id="formValidationExamples"
-                                        class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework"
-                                        novalidate="novalidate"
-                                        enctype="multipart/form-data">
-
-                                        <!-- Account Details -->
-
-                                        <div class="col-12">
-                                            <h6>1. Product Details</h6>
-                                            <hr class="mt-0">
-                                        </div>
+                            <h6>1. Product Details</h6>
+                            <hr class="mt-0">
+                        </div>
 
 
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Product Name 
-                                                <label *ngIf="addProductForm.get('name')?.hasError('required')" class="error"> * This input is required!</label>
-                                            </label>
-                                            
-                                            <input type="text" id="formValidationName" class="form-control"
-                                                placeholder="working desk" formControlName="name">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Category 
-                                                <label *ngIf="addProductForm.get('categoryId')?.hasError('required')" class="error"> * This input is required!</label>
-                                            </label>
-                                            <div class="input-group">
-                                                <label class="input-group-text"
-                                                    for="inputGroupSelect01">Category</label>
-                                                <select class="form-select" id="inputGroupSelect01" formControlName="categoryId">
-                                                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>         
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Price 
-                                                <label *ngIf="addProductForm.get('price')?.hasError('required')" class="error"> * This input is required!</label>
-                                            </label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">$</span>
-
-                                                <input type="number" class="form-control" formControlName="price"
-                                                    aria-label="Dollar amount (with dot and two decimal places)">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <label class="form-label" for="formValidationName">Stoke 
-                                                <label *ngIf="addProductForm.get('stoke')?.hasError('required')" class="error"> * This input is required!</label>
-                                            </label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control" formControlName="stoke"
-                                                    aria-label="Dollar amount (with dot and two decimal places)">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <div>
-                                                <label for="exampleFormControlTextarea1" class="form-label">Description 
-                                                    <label *ngIf="addProductForm.get('description')?.hasError('required')" class="error"> * This input is required!</label>
-                                                </label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                                    formControlName="description"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <!-- Personal Info -->
-
-                                        <div class="col-12">
-                                            <h6 class="mt-2">2. Product Images</h6>
-                                            <hr class="mt-0">
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <div *ngIf="selectedFile1" class="form-control">
-                                                <img id="previewImage1" [src]="imagePreview1"
-                                                    style="width: 100%; height: 100%; object-fit: cover">
-                                            </div>
-                                            <label for="formValidationFile" class="form-label">Product img1 
-                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
-                                            </label>
-                                            <input class="form-control" type="file" id="formValidationFile1"
-                                                name="imgLink1" (change)="onFileSelected($event, 1)">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <div *ngIf="selectedFile2" class="form-control">
-                                                <img id="previewImage2" [src]="imagePreview2"
-                                                    style="width: 100%; height: 100%; object-fit: cover">
-                                            </div>
-                                            <label for="formValidationFile" class="form-label">Product img2 
-                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
-                                            </label>
-                                            <input class="form-control" type="file" id="formValidationFile2"
-                                                name="imgLink2" (change)="onFileSelected($event, 2)">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6 fv-plugins-icon-container">
-                                            <div *ngIf="selectedFile3" class="form-control">
-                                                <img id="previewImage3" [src]="imagePreview3"
-                                                    style="width: 100%; height: 100%; object-fit: cover">
-                                            </div>
-                                            <label for="formValidationFile" class="form-label">Product img3 
-                                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
-                                            </label>
-                                            <input class="form-control" type="file" id="formValidationFile3"
-                                                name="imgLink3" (change)="onFileSelected($event, 3)">
-                                            <div
-                                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-12">
-                                            <button type="submit" name="submitButton"
-                                                class="btn btn-primary">Add product</button>
-                                            <a routerLink="/admin/product" style="display: contents;" id="discardLink"><button type="reset"
-                                                name="resetButton" class="btn bg-label-danger">Discard</button></a>
-                                        </div>
-
-                                    </form>
-                                </div>
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="formValidationName">Product Name 
+                                <label *ngIf="addProductForm.get('name')?.hasError('required')" class="error"> * This input is required!</label>
+                            </label>
+                            
+                            <input type="text" id="formValidationName" class="form-control"
+                                placeholder="working desk" formControlName="name">
+                            <div
+                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
                             </div>
                         </div>
-                        <!-- /FormValidation -->
-                    </div>
 
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="formValidationName">Category 
+                                <label *ngIf="addProductForm.get('categoryId')?.hasError('required')" class="error"> * This input is required!</label>
+                            </label>
+                            <div class="input-group">
+                                <label class="input-group-text"
+                                    for="inputGroupSelect01">Category</label>
+                                <select class="form-select" id="inputGroupSelect01" formControlName="categoryId">
+                                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>         
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="formValidationName">Price 
+                                <label *ngIf="addProductForm.get('price')?.hasError('required')" class="error"> * This input is required!</label>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+
+                                <input type="number" class="form-control" formControlName="price"
+                                    aria-label="Dollar amount (with dot and two decimal places)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <label class="form-label" for="formValidationName">Stoke 
+                                <label *ngIf="addProductForm.get('stoke')?.hasError('required')" class="error"> * This input is required!</label>
+                            </label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" formControlName="stoke"
+                                    aria-label="Dollar amount (with dot and two decimal places)">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <div>
+                                <label for="exampleFormControlTextarea1" class="form-label">Description 
+                                    <label *ngIf="addProductForm.get('description')?.hasError('required')" class="error"> * This input is required!</label>
+                                </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    formControlName="description"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Personal Info -->
+
+                        <div class="col-12">
+                            <h6 class="mt-2">2. Product Images</h6>
+                            <hr class="mt-0">
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <div *ngIf="selectedFile1" class="form-control">
+                                <img id="previewImage1" [src]="imagePreview1"
+                                    style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <label for="formValidationFile" class="form-label">Product img1 
+                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                            </label>
+                            <input class="form-control" type="file" id="formValidationFile1"
+                                name="imgLink1" (change)="onFileSelected($event, 1)">
+                            <div
+                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <div *ngIf="selectedFile2" class="form-control">
+                                <img id="previewImage2" [src]="imagePreview2"
+                                    style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <label for="formValidationFile" class="form-label">Product img2 
+                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                            </label>
+                            <input class="form-control" type="file" id="formValidationFile2"
+                                name="imgLink2" (change)="onFileSelected($event, 2)">
+                            <div
+                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 fv-plugins-icon-container">
+                            <div *ngIf="selectedFile3" class="form-control">
+                                <img id="previewImage3" [src]="imagePreview3"
+                                    style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <label for="formValidationFile" class="form-label">Product img3 
+                                <label *ngIf="!selectedFile1" class="error"> * No file is selected</label>
+                            </label>
+                            <input class="form-control" type="file" id="formValidationFile3"
+                                name="imgLink3" (change)="onFileSelected($event, 3)">
+                            <div
+                                class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <button type="submit" name="submitButton"
+                                class="btn btn-primary">Add product</button>
+                            <a routerLink="/admin/product" style="display: contents;" id="discardLink"><button type="reset"
+                                name="resetButton" class="btn bg-label-danger">Discard</button></a>
+                        </div>
+
+                    </form>
                 </div>
-                <!-- / Content -->
-
-                <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
+        <!-- /FormValidation -->
     </div>
-</body>
+
+</div>

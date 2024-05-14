@@ -29,7 +29,6 @@ export class AdminCouponComponent {
 
   coupons: any[] = []
   isOpenAddCoupon!: boolean
-  isOpen: boolean = false
 
   ngOnInit(): void {
 
@@ -80,7 +79,4 @@ export class AdminCouponComponent {
     this.isOpenAddCoupon = !this.isOpenAddCoupon
   }
 
-  toggleDropdown() {
-    this.isOpen = !this.isOpen;
-  }
 }

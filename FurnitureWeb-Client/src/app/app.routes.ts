@@ -12,6 +12,7 @@ import { AdminProductComponent } from './pages/admin pages/admin-product/admin-p
 import { AdminAddProductComponent } from './pages/admin pages/admin-add-product/admin-add-product.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { AdminCouponComponent } from './pages/admin pages/admin-coupon/admin-coupon.component';
+import { AdminLayoutComponent } from './pages/admin pages/admin-layout/admin-layout.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -21,10 +22,15 @@ export const routes: Routes = [
     {path: "login", component: LoginComponent, canActivate: [loggedInGuard]},
     {path: "register", component: RegisterComponent, canActivate: [loggedInGuard]},
     {path: "logout", component: LogoutComponent},
-    {path: "admin/revenue", component: AdminRevenueComponent, canActivate: [authGuard]},
-    {path: "admin/product", component: AdminProductComponent, canActivate: [authGuard]},
-    {path: "admin/addproduct", component: AdminAddProductComponent, canActivate: [authGuard]},
-    {path: "admin/coupon", component: AdminCouponComponent, canActivate: [authGuard]},
+    {path: "admin", component: AdminLayoutComponent, canActivate: [authGuard],
+        children: [
+            {path: '', redirectTo: 'revenue', pathMatch: 'full'},
+            {path: 'product', component: AdminProductComponent},
+            {path: "revenue", component: AdminRevenueComponent},
+            {path: "addproduct", component: AdminAddProductComponent},
+            {path: "coupon", component: AdminCouponComponent}
+        ]
+    },
     {path: "cart", component: CartComponent, canActivate: [authGuard]},
     {path: "refreshing", redirectTo: "home"},
     {path: "", redirectTo: "home", pathMatch: "full"}
