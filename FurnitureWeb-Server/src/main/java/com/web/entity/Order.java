@@ -61,7 +61,10 @@ public class Order {
 		orderDto.setDescription(Description);
 		orderDto.setDate(date);
 		orderDto.setAmount(amount);
+		orderDto.setTotalAmount(totalAmount);
 		orderDto.setAddress(address);
+		orderDto.setDescription(Description);
+		orderDto.setDiscount(discount);
 		orderDto.setTrackingId(trackingId);
 		orderDto.setOrderStatus(orderStatus);
 		orderDto.setUserName(user.getFullname());

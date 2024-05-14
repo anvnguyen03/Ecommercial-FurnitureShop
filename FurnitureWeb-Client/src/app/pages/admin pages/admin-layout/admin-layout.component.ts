@@ -16,7 +16,6 @@ export class AdminLayoutComponent implements OnInit{
   }
   
   ngOnInit(): void {
-    console.log(this.route.snapshot)
   }
 
   isOpen: boolean = false

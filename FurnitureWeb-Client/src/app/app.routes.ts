@@ -13,6 +13,7 @@ import { AdminAddProductComponent } from './pages/admin pages/admin-add-product/
 import { CartComponent } from './pages/cart/cart.component';
 import { AdminCouponComponent } from './pages/admin pages/admin-coupon/admin-coupon.component';
 import { AdminLayoutComponent } from './pages/admin pages/admin-layout/admin-layout.component';
+import { AdminOrderComponent } from './pages/admin pages/admin-order/admin-order.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -25,10 +26,11 @@ export const routes: Routes = [
     {path: "admin", component: AdminLayoutComponent, canActivate: [authGuard],
         children: [
             {path: '', redirectTo: 'revenue', pathMatch: 'full'},
-            {path: 'product', component: AdminProductComponent},
+            {path: "product", component: AdminProductComponent},
             {path: "revenue", component: AdminRevenueComponent},
             {path: "addproduct", component: AdminAddProductComponent},
-            {path: "coupon", component: AdminCouponComponent}
+            {path: "coupon", component: AdminCouponComponent},
+            {path: "order", component: AdminOrderComponent}
         ]
     },
     {path: "cart", component: CartComponent, canActivate: [authGuard]},

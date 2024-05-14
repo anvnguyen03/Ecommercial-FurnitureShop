@@ -1,1 +1,58 @@
-<p>admin-order works!</p>
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Orders</h4>
+    
+    <div class="card">
+        <div>
+            <h5 class="card-header">Order</h5>
+            <a routerLink="/admin/addproduct" class="a-for-addproductbtn"><button type="button"
+                    class="btn btn-primary my-btn-custom"><i class="bx bx-plus me-0 me-sm-1"></i>Add
+                    Orders</button></a>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table datatable="ng" *ngIf="orders.length > 0" [dtOptions]="dtOptions" class="row-border hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Tracking ID</th>
+                        <th>User Name</th>
+                        <th>Amount</th>
+                        <th>Address</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let order of orders">
+                        <td>
+                            <span class="fw-medium">{{order.trackingId}}</span>
+                        </td>
+                        <td>{{order.userName}}</td>
+                        <td>
+                            <span>
+                                {{order.totalAmount | currency}}
+                            </span>
+                        </td>
+                        <td>
+                            {{order.address}}
+                        </td>
+                        <td>{{order.date | date}}</td>
+                        <td>
+                            <span *ngIf="order.orderStatus == 'PLACED'" class="badge bg-primary me-1">Placed</span>
+                            <span *ngIf="order.orderStatus == 'SHIPPING'" class="badge bg-warning me-1">Shipping</span>
+                            <span *ngIf="order.orderStatus == 'DELIVERED'" class="badge bg-success me-1">Delivered</span>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button (click)="changeOrderStatus(order)" type="button" class="btn btn-info">
+                                  {{chainOfAction(order.orderStatus)}}
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</div>

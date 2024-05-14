@@ -29,4 +29,16 @@ public class OrderServiceImpl implements OrderService{
 		List<OrderDto> ordersDto = orders.stream().map(Order::getDto).collect(Collectors.toList());
 		return new ResponseEntity<>(ordersDto, HttpStatus.OK);
 	}
+	
+	@Override
+	public ResponseEntity<?> changeOrderStatus(long orderId) {
+		Order order = orderRepository.findById(orderId).orElseThrow();
+		if (order.getOrderStatus() == OrderStatus.PLACED) {
+			order.setOrderStatus(OrderStatus.SHIPPING);
+		} else if (order.getOrderStatus() == OrderStatus.SHIPPING) {
+			order.setOrderStatus(OrderStatus.DELIVERED);
+		}
+		orderRepository.save(order);
+		return new ResponseEntity<>(order.getDto(), HttpStatus.OK);
+	}
 }

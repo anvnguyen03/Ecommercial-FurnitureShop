@@ -50,6 +50,12 @@ export class AdminService {
     })
   }
 
+  changeOrderStatus(orderId: any): Observable<any> {
+    return this.httpClient.post(`${this.baseURL}/order/${orderId}`, null, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }
