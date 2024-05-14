@@ -49,22 +49,19 @@ public class CartServiceImpl implements CartService{
 			Optional<User> user = userRepository.findById(addProductInCartDto.getUserId());
 			
 			if (product.isPresent() && user.isPresent()) {
-				CartItems cart = new CartItems();
-				cart.setProduct(product.get());
-				cart.setPrice(product.get().getPrice());
-				cart.setQuantity(addProductInCartDto.getQuantity());
-				cart.setUser(user.get());
-				cart.setOrder(activeOrder);
-				
-				CartItems updatedCart = cartItemsRepository.save(cart);
-				
-				activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice()*cart.getQuantity());
-				activeOrder.setAmount(activeOrder.getAmount() + cart.getPrice()*cart.getQuantity());
-				activeOrder.getCartItems().add(cart);
-				
+				CartItems cartItem = new CartItems();
+				cartItem.setProduct(product.get());
+				cartItem.setPrice(product.get().getPrice());
+				cartItem.setQuantity(addProductInCartDto.getQuantity());
+				cartItem.setUser(user.get());
+				cartItem.setOrder(activeOrder);
+				cartItemsRepository.save(cartItem);
+
+				activeOrder.getCartItems().add(cartItem);
+				activeOrder.updateOrderAmount();
 				orderRepository.save(activeOrder);
 				
-				return new ResponseEntity<>(cart, HttpStatus.CREATED);
+				return new ResponseEntity<>(cartItem, HttpStatus.CREATED);
 				
 			} else {
 				return new ResponseEntity<>("User or Product not found", HttpStatus.NOT_FOUND);
@@ -97,12 +94,8 @@ public class CartServiceImpl implements CartService{
 			if (isCouponExpired(coupon.get())) {
 				return new ResponseEntity<>(null, HttpStatus.LOCKED);
 			} else {
-				double discountAmount = ((coupon.get().getDiscount() / 100.0) * activeOrder.getAmount());
-				double totalAmount = activeOrder.getTotalAmount() - discountAmount;
-				
-				activeOrder.setTotalAmount((long)totalAmount);
-				activeOrder.setDiscount((long)discountAmount);
 				activeOrder.setCoupon(coupon.get());
+				activeOrder.applyCoupon(coupon.get());
 				
 				orderRepository.save(activeOrder);
 				return new ResponseEntity<>(activeOrder.getDto(), HttpStatus.OK);
@@ -118,5 +111,42 @@ public class CartServiceImpl implements CartService{
 		Date expirationDate = coupon.getExpirationDate();
 		
 		return currentDate.after(expirationDate);
+	}
+
+	@Override
+	public ResponseEntity<?> updateCart(CartItemsDto cartItemDto) {
+		Optional<CartItems> existedCartItem = cartItemsRepository.findById(cartItemDto.getId());
+		if (existedCartItem.isEmpty()) {
+			return new ResponseEntity<>("Cart Item not found", HttpStatus.NOT_FOUND);
+		}
+		
+		CartItems cartItem = existedCartItem.get();
+		Product product = productRepository.findById(cartItem.getProduct().getId()).orElseThrow();
+		if (cartItemDto.getQuantity() > product.getStoke()) {
+			return new ResponseEntity<>("Product out of stoke", HttpStatus.BAD_REQUEST);
+		} else {
+			cartItem.setQuantity(cartItemDto.getQuantity());
+			cartItemsRepository.save(cartItem);
+			Order activeOrder = orderRepository.findByUserIdAndOrderStatus(cartItemDto.getUserId(), OrderStatus.PENDING);
+			activeOrder.updateOrderAmount();
+			orderRepository.save(activeOrder);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}
+		
+	}
+
+	@Override
+	public ResponseEntity<?> deleteCartItem(CartItemsDto cartItemDto) {
+		Optional<CartItems> existedCartItem = cartItemsRepository.findById(cartItemDto.getId());
+		Order activeOrder = orderRepository.findByUserIdAndOrderStatus(cartItemDto.getUserId(), OrderStatus.PENDING);
+		if (existedCartItem.isEmpty()) {
+			return new ResponseEntity<>("Cart Item not found", HttpStatus.NOT_FOUND);
+		}
+		CartItems cartItem = existedCartItem.get();
+		cartItemsRepository.delete(cartItem);
+		
+		activeOrder.updateOrderAmount();
+		orderRepository.save(activeOrder);
+		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 }

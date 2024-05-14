@@ -52,6 +52,33 @@ export class UserService {
 
   }
 
+  updateCart(itemId: any, quantity: any): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+
+    const cartItemDto: any = {
+      id: itemId,
+      quantity: quantity,
+      userId: userId
+    }
+    return this.httpClient.post(`${this.baseURL}/cart/update`, cartItemDto, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
+  deleteItem(itemId: any): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+
+    const cartItemDto: any = {
+      id: itemId,
+      userId: userId
+    }
+    return this.httpClient.post(`${this.baseURL}/cart/delete`, cartItemDto, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

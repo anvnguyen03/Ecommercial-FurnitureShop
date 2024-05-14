@@ -55,7 +55,7 @@ public class Order {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	private List<CartItems> cartItems;
 	
-	public  OrderDto getDto() {
+	public OrderDto getDto() {
 		OrderDto orderDto = new OrderDto();
 		orderDto.setId(id);
 		orderDto.setDescription(Description);
@@ -69,6 +69,31 @@ public class Order {
 			orderDto.setCouponName(coupon.getName());
 		}
 		return orderDto;
+	}
+	
+	public void updateOrderAmount() {
+		
+		long amount = 0;
+		for (CartItems item: this.cartItems) {
+			amount += item.getPrice()*item.getQuantity();
+		}
+		this.setAmount(amount);
+		
+		double discountAmount = 0;
+		if (this.getCoupon() != null) {
+			discountAmount = this.getAmount()*(this.getCoupon().getDiscount()/100.0);
+		} 
+		
+		this.setDiscount((long)discountAmount);
+		this.setTotalAmount(this.getAmount() - (long)discountAmount);
+	}
+	
+	public void applyCoupon(Coupon coupon) {
+		double discountAmount = ((coupon.getDiscount() / 100.0) * this.getAmount());
+		double totalAmount = this.getTotalAmount() - discountAmount;
+		
+		this.setTotalAmount((long)totalAmount);
+		this.setDiscount((long)discountAmount);
 	}
 	
 }

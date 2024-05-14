@@ -141,7 +141,7 @@
 
                 <!-- Start Pagination -->
                 <div class="page-pagination text-center" data-aos="fade-up" data-aos-delay="0">
-                    <ul>
+                    <ul>    
                         <li *ngIf="currentPage > 1"><a (click)="backPage(currentPage)"><i class="ion-ios-skipbackward"></i></a></li>
                         <li *ngFor="let page of count(totalPage)"><a class="" [class.active]="currentPage == page" (click)="paging(page)">{{page}}</a></li>
                         <li *ngIf="currentPage < totalPage"><a (click)="nextPage(currentPage)" ><i class="ion-ios-skipforward"></i></a></li>

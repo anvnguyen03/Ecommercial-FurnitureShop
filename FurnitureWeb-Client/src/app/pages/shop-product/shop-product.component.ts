@@ -39,6 +39,7 @@ export class ShopProductComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUrl: UrlSegment[] = this.route.snapshot.url
+    
 
     if (currentUrl.length == 1) { // shop - hiển thị tất cả product page 1
       this.getAllProducts(1)
@@ -109,7 +110,7 @@ export class ShopProductComponent implements OnInit {
 
   paging(page: any) {
     const currentUrl: UrlSegment[] = this.route.snapshot.url
-
+  
     if (currentUrl.length == 1) {
       this.getAllProducts(page)
     }

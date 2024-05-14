@@ -35,7 +35,6 @@
                                 <!-- Start Cart Table Head -->
                                 <thead>
                                     <tr>
-                                        <th class="product_update">Update</th>
                                         <th class="product_thumb">Image</th>
                                         <th class="product_name">Product</th>
                                         <th class="product-price">Price</th>
@@ -48,21 +47,18 @@
 
                                     <!-- Start Cart Single Item-->
                                     <tr *ngFor="let item of cartItems">
-                                        <td class="product_update"><a href="" class="toggle-update"><i
-                                                    class="fa fa-refresh"></i></a></td>
                                         <td class="product_thumb"><a><img [src]="item.processedImg" alt=""></a>
                                         </td>
                                         <td class="product_name"><a>{{item.productName}}</a>
                                         </td>
                                         <td class="product-price"><span class="price">{{item.price | currency}}
                                             </span></td>
-                                        <td class="product_quantity"><label>Quantity</label> <input disabled
-                                                id="quantityInput$i.cartItemsID" min="1" max="100"
-                                                value="{{item.quantity}}" type="number"></td>
+                                        <td class="product_quantity"><label>Quantity</label> 
+                                            <input min="1" max="100" value="{{item.quantity}}" type="number" (input)="change($event, item.id)"></td>
                                         <td class="product_total"><span class="price">{{item.price * item.quantity |
                                                 currency}}
                                             </span></td>
-                                        <td class="product_remove"><a><i class="fa fa-trash-o"></i></a></td>
+                                        <td class="product_remove"><a class="a" (click)="deleteItem(item.id)"><i class="fa fa-trash-o"></i></a></td>
                                     </tr>
                                     <!-- End Cart Single Item-->
                                 </tbody>

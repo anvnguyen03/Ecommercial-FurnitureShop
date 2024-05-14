@@ -65,4 +65,27 @@ export class CartComponent implements OnInit {
       }
     })
   }
+
+  change(event: Event, itemId: any) {
+    const quantity = (event.target as HTMLInputElement).value
+    this.userService.updateCart(itemId, quantity).subscribe({
+      next: (resp) => {
+        this.getCart()
+      },
+      error: (err) => {
+        console.log(err)
+        this.snackBar.open(err.error, 'Đóng', { duration: 3000 })
+      }
+    })
+  }
+
+  deleteItem(itemId: any) {
+    this.userService.deleteItem(itemId).subscribe({
+      next: () => {
+        this.snackBar.open('Item removed', 'Đóng', { duration: 3000 })
+        this.getCart()
+      }
+    })
+  }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.web.dto.AddProductInCartDto;
+import com.web.dto.CartItemsDto;
 import com.web.service.CartService;
 
 import lombok.RequiredArgsConstructor;
@@ -35,5 +36,15 @@ public class CartController {
 	@GetMapping("/coupon/{userId}/{code}")
 	public ResponseEntity<?> applyCoupon(@PathVariable Long userId, @PathVariable String code) {
 		return cartService.applyCoupon(userId, code);
+	}
+	
+	@PostMapping("/cart/update")
+	public ResponseEntity<?> updateCart(@RequestBody CartItemsDto cartItemDto) {
+		return cartService.updateCart(cartItemDto);
+	}
+	
+	@PostMapping("/cart/delete")
+	public ResponseEntity<?> deleteCartItem(@RequestBody CartItemsDto cartItemDto) {
+		return cartService.deleteCartItem(cartItemDto);
 	}
 }
