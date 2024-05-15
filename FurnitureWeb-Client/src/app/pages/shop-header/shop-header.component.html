@@ -20,7 +20,7 @@
                             <a routerLink="/recentlyview"><i class="fa fa-heart"></i> Recently view</a>
                             <a routerLink="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
 
-                            <a *ngIf="isLoggedIn" routerLink="/myaccount"><i class="fa fa-user"></i> {{username}}</a>
+                            <a *ngIf="isLoggedIn" routerLink="/my-account"><i class="fa fa-user"></i> {{username}}</a>
                             <a *ngIf="isLoggedIn" routerLink="/logout"><i class="fa fa-sign-out"></i> Logout</a>
 
                             <a *ngIf="!isLoggedIn" routerLink="/login"><i class="fa fa-user"></i> Login</a>

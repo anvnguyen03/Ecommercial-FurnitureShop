@@ -14,12 +14,17 @@ import { CartComponent } from './pages/cart/cart.component';
 import { AdminCouponComponent } from './pages/admin pages/admin-coupon/admin-coupon.component';
 import { AdminLayoutComponent } from './pages/admin pages/admin-layout/admin-layout.component';
 import { AdminOrderComponent } from './pages/admin pages/admin-order/admin-order.component';
+import { MyAccountComponent } from './pages/my-account/my-account.component';
+import { MyOrderComponent } from './pages/my-order/my-order.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
     {path: "shop", component: ShopProductComponent},
     {path: "shop/:category", component: ShopProductComponent},
     {path: "product/:id", component: ProductComponent},
+    {path: "cart", component: CartComponent, canActivate: [authGuard]},
+    {path: "my-account", component: MyAccountComponent, canActivate: [authGuard]},
+    {path: "my-order/:id", component: MyOrderComponent, canActivate: [authGuard]},
     {path: "login", component: LoginComponent, canActivate: [loggedInGuard]},
     {path: "register", component: RegisterComponent, canActivate: [loggedInGuard]},
     {path: "logout", component: LogoutComponent},
@@ -33,7 +38,6 @@ export const routes: Routes = [
             {path: "order", component: AdminOrderComponent}
         ]
     },
-    {path: "cart", component: CartComponent, canActivate: [authGuard]},
     {path: "refreshing", redirectTo: "home"},
     {path: "", redirectTo: "home", pathMatch: "full"}
 ];

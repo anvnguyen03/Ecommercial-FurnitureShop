@@ -4,9 +4,6 @@
     <div class="card">
         <div>
             <h5 class="card-header">Order</h5>
-            <a routerLink="/admin/addproduct" class="a-for-addproductbtn"><button type="button"
-                    class="btn btn-primary my-btn-custom"><i class="bx bx-plus me-0 me-sm-1"></i>Add
-                    Orders</button></a>
         </div>
         <div class="table-responsive text-nowrap">
             <table datatable="ng" *ngIf="orders.length > 0" [dtOptions]="dtOptions" class="row-border hover" style="width:100%">

@@ -1,0 +1,109 @@
+<app-shop-header></app-shop-header>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title">My Account</h3>
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/shop">Shop</a></li>
+                                <li class="active" aria-current="page">My Account</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Account Dashboard Section:::... -->
+<div class="account-dashboard">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-3 col-lg-3">
+                <!-- Nav tabs -->
+                <div class="dashboard_tab_button" data-aos="fade-up" data-aos-delay="0">
+                    <ul role="tablist" class="nav flex-column dashboard-list">
+                        <li>
+                            <a (click)="changeTab(0)" [class.active]="isTabAccount" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">Account details
+                            </a>
+                        </li>
+                        <li> 
+                            <a (click)="changeTab(1)" [class.active]="isTabOrder" data-bs-toggle="tab"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a routerLink="/logout"
+                                class="nav-link btn btn-block btn-md btn-black-default-hover">logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-9 col-lg-9">
+                <!-- Tab panes -->
+                <div class="tab-content dashboard_content" data-aos="fade-up" data-aos-delay="200">
+                    <div class="tab-pane fade" [ngClass]="{'show active': isTabAccount}" id="account-details">
+                        <h3>Account details </h3>
+                        <div class="login">
+                            <div class="login_form_container">
+                                <div class="account_login_form">
+                                    <form [formGroup]="formAccountDetails" (ngSubmit)="changeAccountDetails()">
+                                        <p>You can change your password here: <a routerLink="my-account/change-password">Change password!</a></p>
+                                        <br>
+                                        <div class="default-form-box mb-20">
+                                            <label>Full Name</label>
+                                            <input type="text" value="{{fullname}}" formControlName="fullname">
+                                        </div>
+                                        <div class="default-form-box mb-20">
+                                            <label>Email</label>
+                                            <input type="text" value="{{email}}" formControlName="email">
+                                        </div>
+                                        <div class="save_button mt-3">
+                                            <button class="btn btn-md btn-black-default-hover" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" [ngClass]="{'show active': isTabOrder}" id="orders">
+                        <h4>Orders</h4>
+                        <div class="table_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tracking ID</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let order of orders">
+                                        <td>{{order.trackingId}}</td>
+                                        <td>{{order.date | date}}</td>
+                                        <td><span class="success">{{order.orderStatus}}</span></td>
+                                        <td>{{order.totalAmount | currency}}</td>
+                                        <td><a href="my-order/{{order.id}}" class="view">view</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Account Dashboard Section:::... -->
+
+<app-shop-footer></app-shop-footer>

@@ -38,7 +38,7 @@ export class ShopHeaderComponent implements OnInit {
     this.authService.validateToken(token).subscribe({
       next: (response) => {
         this.isLoggedIn = response
-        this.username = this.authService.getUsername()
+        this.username = this.authService.getUserFullName()
         this.isAdmin = this.authService.getUserRole() == "ADMIN" ? true : false
       }
     })

@@ -34,14 +34,14 @@ export class AuthService {
     return payload.role
   }
 
-  getUsername() {
+  getUserEmail() {
     this.token = this.getToken()
     if (!this.token) {
       return null
     }
 
     const payload = JSON.parse(atob(this.token.split('.')[1]))
-    return payload.sub.split('@')[0]
+    return payload.sub
   }
 
   setToken(token: string) {
@@ -59,6 +59,11 @@ export class AuthService {
 
   getUser() {
     return localStorage.getItem('user')
+  }
+
+  getUserFullName() {
+    const user = JSON.parse(localStorage.getItem('user')!)
+    return user.fullname
   }
 
   logout() {

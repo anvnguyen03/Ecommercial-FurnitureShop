@@ -90,6 +90,21 @@ export class UserService {
     })
   }
 
+  getMyOrders(): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+
+    return this.httpClient.get(`${this.baseURL}/my-orders/${userId}`, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
+  getOrder(orderId: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/order/${orderId}`, {
+      headers: this.addAuthorizationHeader()
+    })
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

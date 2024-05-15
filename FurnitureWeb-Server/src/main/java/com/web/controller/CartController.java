@@ -13,6 +13,7 @@ import com.web.dto.AddProductInCartDto;
 import com.web.dto.CartItemsDto;
 import com.web.dto.PlaceOrderDto;
 import com.web.service.CartService;
+import com.web.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CartController {
 	
 	private final CartService cartService;
+	private final OrderService orderService;
 	
 	@PostMapping("/cart")
 	public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto product) {
@@ -53,5 +55,15 @@ public class CartController {
 	public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDto placeOrderDto) {
 		
 		return cartService.placeOrder(placeOrderDto);
+	}
+	
+	@GetMapping("/my-orders/{userId}")
+	public ResponseEntity<?> getMyOrders(@PathVariable long userId) {
+		return orderService.getMyOrders(userId);
+	}
+	
+	@GetMapping("/order/{orderId}")
+	public ResponseEntity<?> getOrder(@PathVariable long orderId) {
+		return orderService.getOrder(orderId);
 	}
 }

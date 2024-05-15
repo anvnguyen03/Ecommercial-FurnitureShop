@@ -1,0 +1,121 @@
+<app-shop-header></app-shop-header>
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section breadcrumb-bg-color--golden">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title">My Order</h3>
+                    <div class="breadcrumb-nav breadcrumb-nav-color--black breadcrumb-nav-hover-color--golden">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a routerLink="/home">Home</a></li>
+                                <li><a routerLink="/my-account">My Account</a></li>
+                                <li class="active" aria-current="page">My Order</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Breadcrumb Section:::... -->
+
+<!-- ...:::: Start Cart Section:::... -->
+<div class="cart-section">
+    <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="table_page table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="product_thumb">Image</th>
+                                        <th class="product_name">Product</th>
+                                        <th class="product-price">Price</th>
+                                        <th class="product_quantity">Quantity</th>
+                                        <th class="product_total">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of order.cartItems">
+                                        <td class="product_thumb"><a><img [src]="item.processedImg" alt=""></a>
+                                        </td>
+                                        <td class="product_name"><a>{{item.productName}}</a>
+                                        </td>
+                                        <td class="product-price"><span class="price">{{item.price | currency}}
+                                            </span></td>
+                                        <td class="product_quantity"><label>Quantity</label> 
+                                            <input min="1" max="100" value="{{item.quantity}}" type="number" disabled></td>
+                                        <td class="product_total"><span class="price">{{item.price * item.quantity |
+                                                currency}}
+                                            </span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart_submit">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="coupon_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code left" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Coupon</h3>
+                        
+                        <div *ngIf="!order.couponName; else couponApplied" class="coupon_inner">
+                            <div class="coupon_inner">
+                                <h3>Đơn hàng không áp dụng mã giảm giá</h3>
+                            </div>
+                        </div>
+                        
+                        <ng-template #couponApplied>
+                            <div class="coupon_inner">
+                                <h2>Đã áp dụng mã giảm giá: {{order.couponName}}</h2>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code right" data-aos="fade-up" data-aos-delay="400">
+                        <h3>Cart Totals</h3>
+                        <div class="coupon_inner">
+                            <div class="cart_subtotal">
+                                <p>Amount</p>
+                                <p class="cart_amount">{{order.amount | currency}}
+                                </p>
+                            </div>
+                            <div class="cart_subtotal ">
+                                <p>Discount</p>
+                                <p class="cart_amount"><span></span>- {{order.discount | currency}}</p>
+                            </div>
+                            <a></a>
+
+                            <div class="cart_subtotal">
+                                <p>Total amount</p>
+                                <p class="cart_amount">{{order.totalAmount | currency}}
+                                </p>
+                            </div>
+                            <div class="checkout_btn">
+                                <a class="btn btn-md btn-golden">{{order.orderStatus}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...:::: End Cart Section:::... -->
+
+<app-shop-footer></app-shop-footer>
