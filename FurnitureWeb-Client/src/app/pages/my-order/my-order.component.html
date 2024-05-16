@@ -43,9 +43,9 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of order.cartItems">
-                                        <td class="product_thumb"><a><img [src]="item.processedImg" alt=""></a>
+                                        <td class="product_thumb"><a routerLink="/product/{{item.productId}}"><img [src]="item.processedImg" alt=""></a>
                                         </td>
-                                        <td class="product_name"><a>{{item.productName}}</a>
+                                        <td class="product_name"><a routerLink="/product/{{item.productId}}">{{item.productName}}</a>
                                         </td>
                                         <td class="product-price"><span class="price">{{item.price | currency}}
                                             </span></td>
@@ -55,7 +55,7 @@
                                                 currency}}
                                             </span></td>
                                         <td *ngIf="order.orderStatus == 'DELIVERED'">
-                                            <a class="btn btn-md btn-golden">Review</a>
+                                            <a (click)="review(item.userId, item.productId, item.productName)" class="btn btn-md btn-golden">Review</a>
                                         </td>
                                     </tr>
                                 </tbody>

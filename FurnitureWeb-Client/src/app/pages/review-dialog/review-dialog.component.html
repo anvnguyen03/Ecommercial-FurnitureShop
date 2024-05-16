@@ -1,0 +1,32 @@
+<div class="review-form">
+    <div class="review-form-text-top">
+        <h5>ADD A REVIEW FOR {{productName}}</h5>
+    </div>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="submitReviewForm()">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="default-form-box">
+                    <label for="comment-name">Your image <span>*</span></label>
+                    <input id="comment-name" *ngIf="!isReviewed" type="file" accept="image/*" placeholder="Enter your name" 
+                        formControlName="img" (change)="onSelectedFile($event)">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="default-form-box">
+                    <img class="product_thumb" [src]="reviewImg" alt="">
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="default-form-box">
+                    <label for="comment-review-text">Your review <span>*</span></label>
+                    <textarea id="comment-review-text" placeholder="Write a review" required formControlName="content"></textarea>
+                </div>
+            </div>
+            <div class="col-12">
+                <button *ngIf="isReviewed == false" class="btn btn-md btn-black-default-hover" type="submit">Submit</button>
+                <button *ngIf="isReviewed == true" (click)="closeDialog()" class="btn btn-md btn-black-default-hover" type="button">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

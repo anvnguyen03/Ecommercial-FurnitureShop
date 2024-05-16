@@ -27,6 +27,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
   ) {}
 
   product: any = null
+  reviews: any[] = []
   relatedProducts: any[] = []
   addToCartForm: FormGroup = new FormGroup({
     quantity: new FormControl(1, [Validators.min(1)])
@@ -34,6 +35,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getProduct()
+    this.getReviews()
   }
 
   getProduct() {
@@ -47,6 +49,20 @@ export class ProductComponent implements OnInit, AfterViewInit {
         resp.proccessedImg3 = 'data:image/jpeg;base64,' + resp.img3
         this.product = resp
         this.getRelatedProduct(this.product.categoryId)
+      }
+    })
+  }
+
+  getReviews() {
+    const currentUrl: UrlSegment[] = this.route.snapshot.url
+    const productId = currentUrl[1].path
+
+    this.userService.getReviewsByProductId(productId).subscribe({
+      next: (resp) => {
+        resp.forEach((element: any) => {
+          element.img = 'data:image/jpeg;base64,' + element.byteImg
+        });
+        this.reviews = resp
       }
     })
   }

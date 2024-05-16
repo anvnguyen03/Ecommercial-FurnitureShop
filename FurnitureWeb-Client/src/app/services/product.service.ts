@@ -34,5 +34,4 @@ export class ProductService {
   getRelatedProductByCategory(id: any): Observable<any> {
     return this.httpClient.get(`${this.baseURL}/related/${id}`)
   }
-
 }

@@ -105,6 +105,14 @@ export class UserService {
     })
   }
 
+  getReviewsByProductId(id: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/review/${id}`)
+  }
+
+  createReview(reviewForm: any): Observable<any> {
+    return this.httpClient.post(`${this.baseURL}/review`, reviewForm)
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

@@ -4,6 +4,7 @@ import { provideRouter, withInMemoryScrolling, withRouterConfig } from '@angular
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { httpInterceptorProviders } from './http-interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes,
@@ -11,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     withInMemoryScrolling({ scrollPositionRestoration: 'top'})
   ),
   provideHttpClient(),
-  importProvidersFrom(HttpClientModule),
+  importProvidersFrom(HttpClientModule), httpInterceptorProviders, 
   provideAnimationsAsync()]
 };

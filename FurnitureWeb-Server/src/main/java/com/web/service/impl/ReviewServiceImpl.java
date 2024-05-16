@@ -1,7 +1,9 @@
 package com.web.service.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,8 +54,9 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public ResponseEntity<?> getReviewsByProductId(long productId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Review> reviews = reviewRepository.findByProductId(productId);
+		List<ReviewDto> reviewsDto = reviews.stream().map(Review::getDto).collect(Collectors.toList());
+		return new ResponseEntity<>(reviewsDto, HttpStatus.OK);
 	}
 
 }

@@ -159,10 +159,10 @@
 
                     <!-- Start Product Details Tab Button -->
                     <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
-                        <li><a class="nav-link" [class.active]="descriptionTab" (click)="moveTab(1)">
+                        <li><a class="nav-link a" [class.active]="descriptionTab" (click)="moveTab(1)">
                                 Description
                             </a></li>
-                        <li><a class="nav-link" [class.active]="commentTab" (click)="moveTab(2)">
+                        <li><a class="nav-link a" [class.active]="commentTab" (click)="moveTab(2)">
                                 Review
                             </a></li>
                         <!-- <li><a class="nav-link" data-bs-toggle="tab" href="#review">
@@ -187,21 +187,21 @@
                                     <!-- Start - Review Comment -->
                                     <ul class="comment">
                                         <!-- Start - Review Comment list-->
-                                        <li class="comment-list">
+                                        <li class="comment-list" *ngFor="let review of reviews">
                                             <div class="comment-wrapper">
                                                 <div class="comment-img">
-                                                    <img src="assets/static/images/avatar/avatar.png" alt="">
+                                                    <img [src]="review.img" alt="">
                                                 </div>
                                                 <div class="comment-content">
                                                     <div class="comment-content-top">
                                                         <div class="comment-content-left">
-                                                            <h6 class="comment-name">Kaedyn Fraser</h6>
+                                                            <h6 class="comment-name">{{review.username}}</h6>
                                                             
                                                         </div>
                                                     </div>
 
                                                     <div class="para-content">
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
+                                                        <p>{{review.content}}</p>
                                                     </div>
                                                 </div>
                                             </div>
