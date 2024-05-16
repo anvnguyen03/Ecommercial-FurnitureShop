@@ -163,7 +163,7 @@
                                 Description
                             </a></li>
                         <li><a class="nav-link" [class.active]="commentTab" (click)="moveTab(2)">
-                                Information
+                                Review
                             </a></li>
                         <!-- <li><a class="nav-link" data-bs-toggle="tab" href="#review">
                                 Reviews (1)
@@ -184,7 +184,31 @@
                             <!-- Start Product Details Tab Content Singel -->
                             <div class="tab-pane active show" [class.active]="commentTab" id="information">
                                 <div class="single-tab-content-item">
-                                    <p>Comment</p>
+                                    <!-- Start - Review Comment -->
+                                    <ul class="comment">
+                                        <!-- Start - Review Comment list-->
+                                        <li class="comment-list">
+                                            <div class="comment-wrapper">
+                                                <div class="comment-img">
+                                                    <img src="assets/static/images/avatar/avatar.png" alt="">
+                                                </div>
+                                                <div class="comment-content">
+                                                    <div class="comment-content-top">
+                                                        <div class="comment-content-left">
+                                                            <h6 class="comment-name">Kaedyn Fraser</h6>
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="para-content">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul> 
+                                    <!-- End - Review Comment -->
+                                    
                                 </div>
                             </div>
                             <!-- End Product Details Tab Content Singel -->

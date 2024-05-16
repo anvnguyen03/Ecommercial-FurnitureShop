@@ -38,6 +38,7 @@
                                         <th class="product-price">Price</th>
                                         <th class="product_quantity">Quantity</th>
                                         <th class="product_total">Total</th>
+                                        <th *ngIf="order.orderStatus == 'DELIVERED'" class="product_action">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,6 +54,9 @@
                                         <td class="product_total"><span class="price">{{item.price * item.quantity |
                                                 currency}}
                                             </span></td>
+                                        <td *ngIf="order.orderStatus == 'DELIVERED'">
+                                            <a class="btn btn-md btn-golden">Review</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
