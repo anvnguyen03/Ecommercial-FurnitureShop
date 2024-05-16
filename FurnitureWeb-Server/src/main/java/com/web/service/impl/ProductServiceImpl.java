@@ -109,7 +109,6 @@ public class ProductServiceImpl implements ProductService{
 	public ResponseEntity<?> getRelatedProducts(Long id) {
 		Category category = categoryRepository.findById(id).orElseThrow();
 		List<Product> products = productRepository.findTop6ByCategory(category);
-		System.out.println(products.size());
 		
 		return new ResponseEntity<>(products, HttpStatus.OK);
 	}
