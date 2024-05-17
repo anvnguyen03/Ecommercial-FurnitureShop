@@ -17,7 +17,7 @@
                     <div class="header-top-right">
                         <div
                             class="header-top-user-link header-top-user-link-color--white header-top-user-link-hover-color--green">
-                            <a routerLink="/recentlyview"><i class="fa fa-heart"></i> Recently view</a>
+                            <a routerLink="/wishlist"><i class="fa fa-heart"></i> Wishlist</a>
                             <a routerLink="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
 
                             <a *ngIf="isLoggedIn" routerLink="/my-account"><i class="fa fa-user"></i> {{username}}</a>
@@ -82,7 +82,7 @@
                         <!-- Start Header Action Link -->
                         <ul class="header-action-link action-color--black action-hover-color--golden">
                             <li>
-                                <a href="/recentlyview">
+                                <a routerLink="/wishlist">
                                     <i class="icon-heart"></i>
                                 </a>
                             </li>

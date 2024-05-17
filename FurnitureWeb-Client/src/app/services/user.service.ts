@@ -113,6 +113,35 @@ export class UserService {
     return this.httpClient.post(`${this.baseURL}/review`, reviewForm)
   }
 
+  getWishlist(): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+
+    return this.httpClient.get(`${this.baseURL}/wishlist/${userId}`)
+  }
+
+  addProductToWishlist(productId: any): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+    const wishlistDto = {
+      user_id: userId,
+      product_id: productId
+    }
+
+    return this.httpClient.post(`${this.baseURL}/wishlist`, wishlistDto);
+  }
+
+  deleteProductInWishlist(productId: any): Observable<any> {
+    const userObject = JSON.parse(this.authService.getUser()!)
+    const userId = userObject.userId
+    const wishlistDto = {
+      user_id: userId,
+      product_id: productId
+    }
+
+    return this.httpClient.post(`${this.baseURL}/wishlist/delete`, wishlistDto);
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

@@ -16,6 +16,7 @@ import { AdminLayoutComponent } from './pages/admin pages/admin-layout/admin-lay
 import { AdminOrderComponent } from './pages/admin pages/admin-order/admin-order.component';
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import { MyOrderComponent } from './pages/my-order/my-order.component';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -23,6 +24,7 @@ export const routes: Routes = [
     {path: "shop/:category", component: ShopProductComponent},
     {path: "product/:id", component: ProductComponent},
     {path: "cart", component: CartComponent, canActivate: [authGuard]},
+    {path: "wishlist", component: WishlistComponent, canActivate: [authGuard]},
     {path: "my-account", component: MyAccountComponent, canActivate: [authGuard]},
     {path: "my-order/:id", component: MyOrderComponent, canActivate: [authGuard]},
     {path: "login", component: LoginComponent, canActivate: [loggedInGuard]},

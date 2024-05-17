@@ -186,4 +186,15 @@ export class ProductComponent implements OnInit, AfterViewInit {
       this.router.navigate([`/product/${id}`])
     })
   }
+
+  addToWishlist(productId: any) {
+    this.userService.addProductToWishlist(productId).subscribe({
+      next: (resp) => {
+        this.snackBar.open('Đã thêm sản phẩm vào Wishlist', 'Đóng', { duration: 3000 })
+      },
+      error: () => {
+        this.snackBar.open('Sản phẩm đã nằm trong wishlist', 'Đóng', { duration: 3000 })
+      }
+    })
+  }
 }
