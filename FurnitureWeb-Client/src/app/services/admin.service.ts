@@ -56,6 +56,10 @@ export class AdminService {
     })
   }
 
+  getOrderAnalytics(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/order/analytics`)
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

@@ -29,4 +29,9 @@ public class AdminOrderController {
 	public ResponseEntity<?> changeOrderStatus(@PathVariable long orderId) {
 		return orderService.changeOrderStatus(orderId);
 	}
+	
+	@GetMapping("/order/analytics")
+	public ResponseEntity<?> getOrderAnalytics() {
+		return orderService.calculateAnalytics();
+	}
 }

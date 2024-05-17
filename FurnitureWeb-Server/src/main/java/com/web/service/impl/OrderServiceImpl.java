@@ -1,5 +1,8 @@
 package com.web.service.impl;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.web.dto.AnalyticsResponse;
 import com.web.dto.CartItemsDto;
 import com.web.dto.OrderDto;
 import com.web.entity.CartItems;
@@ -69,5 +73,77 @@ public class OrderServiceImpl implements OrderService{
 		}
 		
 		return new ResponseEntity<>(orderDto, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<?> calculateAnalytics() {
+		
+        LocalDate currentDate = LocalDate.now();
+        LocalDate previousDate = currentDate.minusMonths(1);
+        
+        long currentMonthOrders = getTotalOrdersForMonth(currentDate.getMonthValue(), currentDate.getYear());
+        long previousMonthOrders = getTotalOrdersForMonth(previousDate.getMonthValue(), previousDate.getYear());
+        
+        long currentMonthProfit = getProfitsForMonth(currentDate.getMonthValue(), currentDate.getYear());
+        long previousMonthProfit = getProfitsForMonth(previousDate.getMonthValue(), previousDate.getYear());
+        
+        long placed = orderRepository.countByOrderStatus(OrderStatus.PLACED);
+        long shipping = orderRepository.countByOrderStatus(OrderStatus.SHIPPING);
+        long delivered = orderRepository.countByOrderStatus(OrderStatus.DELIVERED);
+        
+        AnalyticsResponse response = new AnalyticsResponse(placed, shipping, delivered, currentMonthOrders, previousMonthOrders, currentMonthProfit, previousMonthProfit);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	private long getTotalOrdersForMonth(int month, int year) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		
+		Date startOfMonth = calendar.getTime();
+		
+		// Move calendar to the end of month
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		
+		Date endOfMonth = calendar.getTime();
+		
+		List<Order> orders = orderRepository.findByDateBetweenAndOrderStatus(startOfMonth, endOfMonth, OrderStatus.DELIVERED);
+		return (long) orders.size();
+	}
+	
+	private long getProfitsForMonth(int month, int year) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month - 1);
+		calendar.set(Calendar.DAY_OF_MONTH, 1);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		
+		Date startOfMonth = calendar.getTime();
+		
+		// Move calendar to the end of month
+		calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 59);
+		
+		Date endOfMonth = calendar.getTime();
+		
+		List<Order> orders = orderRepository.findByDateBetweenAndOrderStatus(startOfMonth, endOfMonth, OrderStatus.DELIVERED);
+		
+		long sum = 0l;
+		for (Order order : orders) {
+			sum += order.getTotalAmount();
+		}
+		
+		return sum;
 	}
 }

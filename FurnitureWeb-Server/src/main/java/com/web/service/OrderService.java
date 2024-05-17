@@ -8,4 +8,5 @@ public interface OrderService {
 	ResponseEntity<?> getMyOrders(long userId);
 	ResponseEntity<?> getOrder(long orderId);
 	ResponseEntity<?> changeOrderStatus(long orderId);
+	ResponseEntity<?> calculateAnalytics();
 }
