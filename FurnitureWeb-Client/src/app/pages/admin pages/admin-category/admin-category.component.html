@@ -1,0 +1,73 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> Category</h4>
+    <!-- Hoverable Table rows -->
+    <div class="card">
+        <div>
+            <h5 class="card-header">Category</h5>
+            <a (click)="toggleAddCategory()" class="a-for-addproductbtn"><button type="button"
+                    class="btn btn-primary my-btn-custom"><i class="bx bx-plus me-0 me-sm-1"></i>Add
+                    Category</button></a>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table datatable="ng" *ngIf="categories.length > 0" [dtOptions]="dtOptions" class="row-border hover"
+                style="width:100%">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Category name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let category of categories; let i = index">
+                        <td>
+                            <span class="fw-medium">{{i+1}}</span>
+                        </td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Hoverable Table rows -->
+
+    <!-- Offcanvas to add new coupon -->
+    <div class="offcanvas offcanvas-end" [class.show]="isOpenAddCatetory" tabindex="-1" id="offcanvasEcommerceCategoryList"
+        aria-labelledby="offcanvasEcommerceCategoryListLabel">
+        <!-- Offcanvas Header -->
+        <div class="offcanvas-header py-4">
+            <h5 id="offcanvasEcommerceCategoryListLabel" class="offcanvas-title">Add Category</h5>
+            <button (click)="toggleAddCategory()" type="button" class="btn-close bg-label-secondary text-reset"
+                data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <!-- Offcanvas Body -->
+        <div class="offcanvas-body border-top">
+            <form class="pt-0" [formGroup]="addCategoryForm" (ngSubmit)="addCategory()" onsubmit="return true">
+              
+                <div class="mb-3">
+                    <label class="form-label">Category name</label>
+                    <input type="text" class="form-control"
+                        placeholder="Name" formControlName="name">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control"
+                        placeholder="Code" formControlName="description">
+                </div>
+
+                <!-- Submit and reset -->
+                <div class="mb-3">
+                    <button type="submit"
+                        class="btn btn-primary me-sm-3 me-1 data-submit">Add</button>
+                    <button (click)="toggleAddCategory()" type="reset" class="btn bg-label-danger"
+                        data-bs-dismiss="offcanvas">Discard</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- End Offcanvas -->
+    <div *ngIf="isOpenAddCatetory" class="offcanvas-backdrop fade show"></div>
+</div>

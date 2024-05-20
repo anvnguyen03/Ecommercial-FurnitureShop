@@ -1,0 +1,67 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboards /</span> User</h4>
+    <!-- Hoverable Table rows -->
+    <div class="card">
+        <div>
+            <h5 class="card-header">User</h5>
+        </div>
+        <div class="table-responsive text-nowrap">
+            <table datatable *ngIf="users.length > 0" [dtOptions]="dtOptions" class="row-border hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Full name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>
+                            <span class="fw-medium">{{user.id}}</span>
+                        </td>
+                        <td>{{user.fullname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.role}}</td>
+                        <td>
+                            <span *ngIf="user.status == 'ACTIVE'" class="badge bg-success me-1 a" (click)="changeStatus(user.id)">Active</span>
+                            <span *ngIf="user.status == 'LOCKED'" class="badge bg-danger me-1 a" (click)="changeStatus(user.id)">Locked</span>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <ul
+                                    class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                    <li>
+                                        <a class="a-for-btn">
+                                            <button type="button" class="btn p-0 hide-arrow">
+                                                <i class="bx bx-edit-alt me-1"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="toggle-del-pop-up a-for-btn">
+                                            <button type="button" class="btn p-0 hide-arrow">
+                                                <i class="bx bx-trash me-1"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="a-for-btn">
+                                            <button type="button" class="btn p-0 hide-arrow">
+                                                <i class="bx bx-info-circle me-1"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--/ Hoverable Table rows -->
+</div>

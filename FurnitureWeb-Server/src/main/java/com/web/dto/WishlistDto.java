@@ -13,7 +13,7 @@ public class WishlistDto {
 	
 	private long price;
 	
-	private int stoke;
+	private long stoke;
 	
 	private byte[] img;
 

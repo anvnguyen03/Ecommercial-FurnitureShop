@@ -16,7 +16,7 @@ public class ProductDto {
 
 	private Long price;
 	
-	private int stoke;
+	private long stoke;
 	
 	private ProductStatus status;
 

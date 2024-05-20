@@ -17,6 +17,8 @@ import { AdminOrderComponent } from './pages/admin pages/admin-order/admin-order
 import { MyAccountComponent } from './pages/my-account/my-account.component';
 import { MyOrderComponent } from './pages/my-order/my-order.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { AdminCategoryComponent } from './pages/admin pages/admin-category/admin-category.component';
+import { AdminUserComponent } from './pages/admin pages/admin-user/admin-user.component';
 
 export const routes: Routes = [
     {path: "home", component: HomeComponent},
@@ -33,7 +35,9 @@ export const routes: Routes = [
     {path: "admin", component: AdminLayoutComponent, canActivate: [authGuard],
         children: [
             {path: '', redirectTo: 'revenue', pathMatch: 'full'},
+            {path: "category", component: AdminCategoryComponent},
             {path: "product", component: AdminProductComponent},
+            {path: "user", component: AdminUserComponent},
             {path: "revenue", component: AdminRevenueComponent},
             {path: "addproduct", component: AdminAddProductComponent},
             {path: "coupon", component: AdminCouponComponent},

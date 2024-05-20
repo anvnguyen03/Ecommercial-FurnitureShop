@@ -60,6 +60,14 @@ export class AdminService {
     return this.httpClient.get(`${this.baseURL}/order/analytics`)
   }
 
+  getAllUsers(): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/user`)
+  }
+
+  changeUserStatus(userId: any): Observable<any> {
+    return this.httpClient.get(`${this.baseURL}/user/change-status/${userId}`)
+  }
+
   private addAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set('Authorization', 'Bearer ' + this.authService.getToken());
   }

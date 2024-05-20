@@ -63,6 +63,10 @@ public class CartServiceImpl implements CartService{
 				activeOrder.updateOrderAmount();
 				orderRepository.save(activeOrder);
 				
+				Product orderedProduct = product.get();
+				orderedProduct.setStoke(orderedProduct.getStoke() - addProductInCartDto.getQuantity());
+				productRepository.save(orderedProduct);
+				
 				return new ResponseEntity<>(cartItem, HttpStatus.CREATED);
 				
 			} else {
@@ -127,6 +131,15 @@ public class CartServiceImpl implements CartService{
 		if (cartItemDto.getQuantity() > product.getStoke()) {
 			return new ResponseEntity<>("Product out of stoke", HttpStatus.BAD_REQUEST);
 		} else {
+			
+			if (cartItem.getQuantity() > cartItemDto.getQuantity()) {
+				// truong hop giam so luong item => them lai so luong san pham
+				product.setStoke(product.getStoke() + 1); // moi lan chi tang hoac giam duoc 1 don vi
+			} else if (cartItem.getQuantity() < cartItemDto.getQuantity()) {
+				product.setStoke(product.getStoke() - 1);
+			}
+			productRepository.save(product);
+			
 			cartItem.setQuantity(cartItemDto.getQuantity());
 			cartItemsRepository.save(cartItem);
 			Order activeOrder = orderRepository.findByUserIdAndOrderStatus(cartItemDto.getUserId(), OrderStatus.PENDING);
@@ -149,6 +162,11 @@ public class CartServiceImpl implements CartService{
 		
 		activeOrder.updateOrderAmount();
 		orderRepository.save(activeOrder);
+		
+		Product product = productRepository.findById(cartItem.getProduct().getId()).orElseThrow();
+		product.setStoke(product.getStoke() + cartItem.getQuantity());
+		productRepository.save(product);
+		
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
 	

@@ -32,7 +32,7 @@ public class Product {
 	
 	private Long price;
 	
-	private int stoke;
+	private Long stoke;
 	
 	private ProductStatus status;
 	
